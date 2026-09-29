@@ -240,9 +240,6 @@ body {
     color: #991b1b;
 }
 
-
-/* 정답 팝 효과 */
-
 .feedback.correct strong {
     display: inline-block;
     animation: correctPop 0.45s ease;
@@ -326,9 +323,6 @@ body {
     margin-bottom: 30px;
 }
 
-
-/* 결과 화면 버튼 */
-
 .result-buttons {
     display: grid;
     gap: 12px;
@@ -379,12 +373,11 @@ body {
 
 
 /* =========================
-   색종이
+   색종이 캔버스
 ========================= */
 
 #confettiCanvas {
     position: fixed;
-
     left: 0;
     top: 0;
 
@@ -437,9 +430,6 @@ body {
 
 <body>
 
-
-<!-- 색종이 -->
-
 <canvas id="confettiCanvas"></canvas>
 
 
@@ -453,11 +443,7 @@ body {
     <div id="quizScreen">
 
 
-        <!-- 메인으로 돌아가기 -->
-
-        <a
-            href="../"
-            class="home-top">
+        <a href="../" class="home-top">
             ← 메인으로
         </a>
 
@@ -602,7 +588,6 @@ body {
 
 
 <script>
-
 
 /* ========================================
    퀴즈 데이터
@@ -880,9 +865,11 @@ function selectAnswer(
             `<strong>🎉 정답입니다!</strong><br>${data.explanation}`;
 
 
-        /* 사선 색종이 */
+        /*
+        아래에서 위로 팡!
+        */
 
-        launchDiagonalConfetti();
+        launchConfetti();
 
     }
 
@@ -1025,11 +1012,11 @@ function showResult() {
             대단해요. 당신은 상식 퀴즈왕입니다!`;
 
 
+        /* 만점이면 더 크게 */
+
         setTimeout(
             () =>
-                launchDiagonalConfetti(
-                    260
-                ),
+                launchConfetti(260),
             200
         );
 
@@ -1116,7 +1103,8 @@ document.getElementById(
 
 
 /* ========================================
-   🎊 사선 색종이
+   🎊 색종이 효과
+   아래 → 위 → 아래
 ======================================== */
 
 const confettiCanvas =
@@ -1204,19 +1192,24 @@ resizeConfettiCanvas();
 
 
 /* ========================================
-   왼쪽 위 → 오른쪽 아래 사선 색종이
+   색종이 발사
 ======================================== */
 
-function launchDiagonalConfetti(
-    amount = 180
+function launchConfetti(
+    amount = 150
 ) {
 
-    const startX =
-        -30;
+    /*
+    화면 아래쪽 중앙에서
+    양쪽으로 퍼지면서 위로 발사
+    */
+
+    const centerX =
+        window.innerWidth / 2;
 
 
     const startY =
-        window.innerHeight * 0.12;
+        window.innerHeight + 10;
 
 
     for (
@@ -1225,55 +1218,62 @@ function launchDiagonalConfetti(
         i++
     ) {
 
-        const speedX =
-            Math.random() * 8 + 9;
+        /*
+        좌우 방향
+        */
+
+        const horizontalSpeed =
+            (Math.random() - 0.5) * 13;
 
 
-        const speedY =
-            Math.random() * 5 - 1;
+        /*
+        위로 강하게 발사
+        음수 = 위쪽
+        */
+
+        const verticalSpeed =
+            -(Math.random() * 10 + 16);
 
 
         confettiPieces.push({
 
             x:
-                startX +
-                Math.random() * 60,
+                centerX +
+                (Math.random() - 0.5) * 100,
 
             y:
-                startY +
-                Math.random() * 100,
+                startY,
 
             vx:
-                speedX,
+                horizontalSpeed,
 
             vy:
-                speedY,
+                verticalSpeed,
+
+            /*
+            중력 때문에
+            올라갔다 다시 내려옴
+            */
 
             gravity:
-                Math.random() *
-                0.055 + 0.055,
+                Math.random() * 0.12 + 0.28,
 
             drag:
-                Math.random() *
-                0.003 + 0.994,
+                0.995,
 
             rotation:
                 Math.random() *
                 Math.PI * 2,
 
             rotationSpeed:
-                (
-                    Math.random() -
-                    0.5
-                ) * 0.35,
+                (Math.random() - 0.5) *
+                0.32,
 
             width:
-                Math.random() *
-                9 + 5,
+                Math.random() * 9 + 5,
 
             height:
-                Math.random() *
-                6 + 3,
+                Math.random() * 7 + 4,
 
             color:
                 confettiColors[
@@ -1283,20 +1283,15 @@ function launchDiagonalConfetti(
                     )
                 ],
 
-            life:
-                1,
-
-            decay:
-                Math.random() *
-                0.0025 + 0.0025,
-
             wobble:
                 Math.random() *
                 Math.PI * 2,
 
             wobbleSpeed:
                 Math.random() *
-                0.08 + 0.04
+                0.1 + 0.04,
+
+            opacity: 1
 
         });
 
@@ -1310,14 +1305,12 @@ function launchDiagonalConfetti(
 
 
 /* ========================================
-   색종이 애니메이션
+   색종이 움직이기
 ======================================== */
 
 function startConfettiAnimation() {
 
-    if (
-        confettiAnimation
-    ) {
+    if (confettiAnimation) {
         return;
     }
 
@@ -1337,15 +1330,10 @@ function startConfettiAnimation() {
 
                 piece =>
 
-                    piece.life > 0 &&
-
-                    piece.x <
-                        window.innerWidth +
-                        150 &&
-
                     piece.y <
-                        window.innerHeight +
-                        150
+                        window.innerHeight + 100 &&
+
+                    piece.opacity > 0
 
             );
 
@@ -1353,20 +1341,36 @@ function startConfettiAnimation() {
         confettiPieces.forEach(
             piece => {
 
+                /*
+                흔들림
+                */
+
                 piece.wobble +=
                     piece.wobbleSpeed;
 
+
+                /*
+                이동
+                */
 
                 piece.x +=
                     piece.vx +
                     Math.sin(
                         piece.wobble
-                    ) * 0.8;
+                    ) * 0.7;
 
 
                 piece.y +=
                     piece.vy;
 
+
+                /*
+                중력
+
+                처음에는 위로 올라가다가
+                속도가 0이 된 후
+                다시 아래로 떨어짐
+                */
 
                 piece.vy +=
                     piece.gravity;
@@ -1376,20 +1380,42 @@ function startConfettiAnimation() {
                     piece.drag;
 
 
+                /*
+                회전
+                */
+
                 piece.rotation +=
                     piece.rotationSpeed;
 
 
-                piece.life -=
-                    piece.decay;
+                /*
+                화면 아래쪽으로
+                떨어질 때 살짝 사라짐
+                */
 
+                if (
+                    piece.y >
+                    window.innerHeight * 0.82
+                    &&
+                    piece.vy > 0
+                ) {
+
+                    piece.opacity -=
+                        0.025;
+
+                }
+
+
+                /*
+                그리기
+                */
 
                 ctx.save();
 
 
                 ctx.globalAlpha =
                     Math.max(
-                        piece.life,
+                        piece.opacity,
                         0
                     );
 
