@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>상식 퀴즈</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    font-family: -apple-system, BlinkMacSystemFont,
+        "Pretendard", "Noto Sans KR", Arial, sans-serif;
+
+    background:
+        radial-gradient(circle at 15% 20%, #dbeafe 0, transparent 35%),
+        radial-gradient(circle at 85% 80%, #ede9fe 0, transparent 35%),
+        #f8fafc;
+
+    color: #1e293b;
+}
+
+.quiz-container {
+    width: 100%;
+    max-width: 650px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 28px;
+    padding: 38px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+}
+
+.quiz-title {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 32px;
+}
+
+.quiz-subtitle {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 32px;
+}
+
+.top-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.progress {
+    width: 100%;
+    height: 9px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    transition: width 0.35s ease;
+}
+
+.question-number {
+    color: #6366f1;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.question {
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.answers {
+    display: grid;
+    gap: 12px;
+}
+
+.answer-btn {
+    width: 100%;
+    min-height: 58px;
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    background: white;
+    padding: 15px 18px;
+
+    font-size: 16px;
+    text-align: left;
+    color: #334155;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.answer-btn:hover:not(:disabled) {
+    border-color: #818cf8;
+    background: #f5f3ff;
+    transform: translateY(-1px);
+}
+
+.answer-btn:disabled {
+    cursor: default;
+}
+
+.answer-btn.correct {
+    background: #ecfdf5;
+    border-color: #22c55e;
+    color: #166534;
+    font-weight: 700;
+}
+
+.answer-btn.wrong {
+    background: #fef2f2;
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+.feedback {
+    display: none;
+    margin-top: 22px;
+    padding: 18px;
+    border-radius: 15px;
+    line-height: 1.65;
+}
+
+.feedback.correct {
+    display: block;
+    background: #ecfdf5;
+    color: #166534;
+}
+
+.feedback.wrong {
+    display: block;
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.next-btn {
+    display: none;
+    width: 100%;
+    margin-top: 20px;
+    border: 0;
+    border-radius: 15px;
+    padding: 16px;
+
+    background: #4f46e5;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.next-btn:hover {
+    background: #4338ca;
+}
+
+.result {
+    display: none;
+    text-align: center;
+}
+
+.result-icon {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+.result h2 {
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.score-big {
+    font-size: 58px;
+    font-weight: 800;
+    color: #4f46e5;
+    margin: 20px 0 10px;
+}
+
+.result-message {
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.restart-btn {
+    width: 100%;
+    border: 0;
+    border-radius: 15px;
+    padding: 16px;
+
+    background: #4f46e5;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+        align-items: flex-start;
+        padding-top: 40px;
+    }
+
+    .quiz-container {
+        padding: 25px 20px;
+        border-radius: 22px;
+    }
+
+    .quiz-title {
+        font-size: 27px;
+    }
+
+    .question {
+        font-size: 20px;
+    }
+
+    .answer-btn {
+        font-size: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-container">
+
+    <div id="quizScreen">
+
+        <h1 class="quiz-title">🧠 상식 퀴즈</h1>
+        <p class="quiz-subtitle">
+            나는 과연 몇 문제를 맞힐 수 있을까요?
+        </p>
+
+        <div class="top-info">
+            <span id="progressText">1 / 5</span>
+            <span>점수 <strong id="score">0</strong></span>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="question-number" id="questionNumber"></div>
+
+        <div class="question" id="question"></div>
+
+        <div class="answers" id="answers"></div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <button class="next-btn" id="nextBtn">
+            다음 문제 →
+        </button>
+
+    </div>
+
+
+    <div class="result" id="resultScreen">
+
+        <div class="result-icon" id="resultIcon">
+            🎉
+        </div>
+
+        <h2>퀴즈 완료!</h2>
+
+        <div class="score-big" id="finalScore"></div>
+
+        <div class="result-message" id="resultMessage"></div>
+
+        <button class="restart-btn" id="restartBtn">
+            다시 도전하기
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const quizData = [
+
+    {
+        question: "대한민국의 수도는 어디일까요?",
+        answers: [
+            "부산",
+            "서울",
+            "인천",
+            "대전"
+        ],
+        correct: 1,
+        explanation:
+            "대한민국의 수도는 서울입니다. 서울은 대한민국의 정치·경제·문화 중심지입니다."
+    },
+
+    {
+        question: "세계에서 가장 큰 대양은 무엇일까요?",
+        answers: [
+            "대서양",
+            "인도양",
+            "태평양",
+            "북극해"
+        ],
+        correct: 2,
+        explanation:
+            "태평양은 지구에서 가장 넓고 깊은 대양입니다."
+    },
+
+    {
+        question: "식물이 햇빛을 이용해 양분을 만드는 과정을 무엇이라고 할까요?",
+        answers: [
+            "호흡",
+            "증발",
+            "발효",
+            "광합성"
+        ],
+        correct: 3,
+        explanation:
+            "식물은 햇빛 에너지를 이용하는 광합성을 통해 유기물을 만듭니다."
+    },
+
+    {
+        question: "훈민정음 창제를 주도한 조선의 왕은 누구일까요?",
+        answers: [
+            "태조",
+            "세종",
+            "영조",
+            "정조"
+        ],
+        correct: 1,
+        explanation:
+            "세종대왕은 백성이 쉽게 글을 익힐 수 있도록 훈민정음 창제를 주도했습니다."
+    },
+
+    {
+        question: "지구가 태양을 한 바퀴 도는 데 걸리는 시간은 약 얼마일까요?",
+        answers: [
+            "24시간",
+            "30일",
+            "365일",
+            "10년"
+        ],
+        correct: 2,
+        explanation:
+            "지구의 공전 주기는 약 365.24일입니다. 이를 기준으로 1년을 정합니다."
+    }
+
+];
+
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+
+const questionEl =
+    document.getElementById("question");
+
+const questionNumberEl =
+    document.getElementById("questionNumber");
+
+const answersEl =
+    document.getElementById("answers");
+
+const feedbackEl =
+    document.getElementById("feedback");
+
+const nextBtn =
+    document.getElementById("nextBtn");
+
+const scoreEl =
+    document.getElementById("score");
+
+const progressText =
+    document.getElementById("progressText");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const quizScreen =
+    document.getElementById("quizScreen");
+
+const resultScreen =
+    document.getElementById("resultScreen");
+
+
+function loadQuestion() {
+
+    answered = false;
+
+    const data = quizData[currentQuestion];
+
+    questionNumberEl.textContent =
+        `QUESTION ${currentQuestion + 1}`;
+
+    questionEl.textContent =
+        data.question;
+
+    progressText.textContent =
+        `${currentQuestion + 1} / ${quizData.length}`;
+
+    progressBar.style.width =
+        `${((currentQuestion + 1) / quizData.length) * 100}%`;
+
+    answersEl.innerHTML = "";
+
+    feedbackEl.style.display = "none";
+    feedbackEl.className = "feedback";
+
+    nextBtn.style.display = "none";
+
+
+    data.answers.forEach((answer, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "answer-btn";
+
+        button.textContent =
+            `${index + 1}. ${answer}`;
+
+        button.addEventListener(
+            "click",
+            () => selectAnswer(index, button)
+        );
+
+        answersEl.appendChild(button);
+
+    });
+
+}
+
+
+function selectAnswer(index, selectedButton) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const data =
+        quizData[currentQuestion];
+
+    const buttons =
+        document.querySelectorAll(".answer-btn");
+
+
+    buttons.forEach(
+        button => button.disabled = true
+    );
+
+
+    if (index === data.correct) {
+
+        score++;
+
+        scoreEl.textContent = score;
+
+        selectedButton.classList.add("correct");
+
+        feedbackEl.className =
+            "feedback correct";
+
+        feedbackEl.innerHTML =
+            `<strong>🎉 정답입니다!</strong><br>${data.explanation}`;
+
+    }
+
+    else {
+
+        selectedButton.classList.add("wrong");
+
+        buttons[data.correct]
+            .classList.add("correct");
+
+        feedbackEl.className =
+            "feedback wrong";
+
+        feedbackEl.innerHTML =
+            `<strong>아쉽네요!</strong><br>${data.explanation}`;
+
+    }
+
+
+    feedbackEl.style.display = "block";
+
+    nextBtn.style.display = "block";
+
+
+    if (
+        currentQuestion ===
+        quizData.length - 1
+    ) {
+
+        nextBtn.textContent =
+            "결과 보기 →";
+
+    }
+
+    else {
+
+        nextBtn.textContent =
+            "다음 문제 →";
+
+    }
+
+}
+
+
+nextBtn.addEventListener(
+    "click",
+    () => {
+
+        currentQuestion++;
+
+        if (
+            currentQuestion <
+            quizData.length
+        ) {
+
+            loadQuestion();
+
+        }
+
+        else {
+
+            showResult();
+
+        }
+
+    }
+);
+
+
+function showResult() {
+
+    quizScreen.style.display =
+        "none";
+
+    resultScreen.style.display =
+        "block";
+
+
+    const percentage =
+        Math.round(
+            (score / quizData.length) * 100
+        );
+
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+        `${percentage}점`;
+
+
+    const icon =
+        document.getElementById(
+            "resultIcon"
+        );
+
+    const message =
+        document.getElementById(
+            "resultMessage"
+        );
+
+
+    if (percentage === 100) {
+
+        icon.textContent = "🏆";
+
+        message.innerHTML =
+            `전 문제 정답!<br>
+            대단해요. 당신은 상식 퀴즈왕입니다!`;
+
+    }
+
+    else if (percentage >= 80) {
+
+        icon.textContent = "🎉";
+
+        message.innerHTML =
+            `아주 훌륭해요!<br>
+            ${quizData.length}문제 중 ${score}문제를 맞혔습니다.`;
+
+    }
+
+    else if (percentage >= 60) {
+
+        icon.textContent = "👏";
+
+        message.innerHTML =
+            `좋아요! 조금만 더 도전해볼까요?<br>
+            ${quizData.length}문제 중 ${score}문제를 맞혔습니다.`;
+
+    }
+
+    else {
+
+        icon.textContent = "💪";
+
+        message.innerHTML =
+            `괜찮아요! 다시 도전하면 더 잘할 수 있어요.<br>
+            ${quizData.length}문제 중 ${score}문제를 맞혔습니다.`;
+
+    }
+
+}
+
+
+document.getElementById(
+    "restartBtn"
+).addEventListener(
+    "click",
+    () => {
+
+        currentQuestion = 0;
+        score = 0;
+
+        scoreEl.textContent = 0;
+
+        resultScreen.style.display =
+            "none";
+
+        quizScreen.style.display =
+            "block";
+
+        loadQuestion();
+
+    }
+);
+
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
