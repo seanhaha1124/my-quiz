@@ -7,6 +7,11 @@
 <title>기억력 게임</title>
 
 <style>
+
+/* ==================================================
+   기본
+================================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -34,10 +39,10 @@ body {
     overflow-x: hidden;
 }
 
-
-/* ========================================
-   전체
-======================================== */
+button,
+input {
+    font-family: inherit;
+}
 
 .wrap {
     width: 100%;
@@ -46,9 +51,9 @@ body {
 }
 
 
-/* ========================================
+/* ==================================================
    메인으로
-======================================== */
+================================================== */
 
 .home-btn {
     display: inline-flex;
@@ -81,9 +86,9 @@ body {
 }
 
 
-/* ========================================
+/* ==================================================
    제목
-======================================== */
+================================================== */
 
 .header {
     text-align: center;
@@ -122,9 +127,9 @@ h1 {
 }
 
 
-/* ========================================
-   게임 박스
-======================================== */
+/* ==================================================
+   공통 박스
+================================================== */
 
 .game-box {
     padding: 30px;
@@ -140,9 +145,254 @@ h1 {
 }
 
 
-/* ========================================
+/* ==================================================
+   시작 화면
+================================================== */
+
+.start-screen {
+    text-align: center;
+}
+
+.start-emoji {
+    margin-bottom: 12px;
+
+    font-size: 66px;
+}
+
+.start-screen h2 {
+    margin-bottom: 10px;
+
+    font-size: 27px;
+}
+
+.start-description {
+    margin-bottom: 25px;
+
+    color: #64748b;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* ==================================================
+   도전장
+================================================== */
+
+.challenge-box {
+    display: none;
+
+    margin-bottom: 24px;
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #fefce8
+        );
+
+    border: 1px solid #fde68a;
+    border-radius: 17px;
+
+    text-align: center;
+}
+
+.challenge-label {
+    margin-bottom: 7px;
+
+    color: #d97706;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.challenge-name {
+    margin-bottom: 7px;
+
+    color: #92400e;
+
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.challenge-record {
+    color: #78350f;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.challenge-text {
+    margin-top: 8px;
+
+    color: #a16207;
+
+    font-size: 12px;
+}
+
+
+/* ==================================================
+   이름 입력
+================================================== */
+
+.name-area {
+    margin-bottom: 15px;
+
+    text-align: left;
+}
+
+.name-area label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #475569;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.name-input {
+    width: 100%;
+    height: 54px;
+
+    padding: 0 17px;
+
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+
+    background: #fff;
+
+    color: #334155;
+
+    outline: none;
+
+    font-size: 15px;
+
+    transition: .2s;
+}
+
+.name-input:focus {
+    border-color: #34d399;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(52,211,153,.10);
+}
+
+.name-error {
+    display: none;
+
+    margin-top: 7px;
+
+    color: #ef4444;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* ==================================================
+   시작 버튼
+================================================== */
+
+.start-btn {
+    width: 100%;
+    min-height: 54px;
+
+    border: 0;
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #10b981,
+            #14b8a6
+        );
+
+    color: #fff;
+
+    font-size: 16px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 22px
+        rgba(16,185,129,.20);
+}
+
+
+/* ==================================================
+   개인 최고 기록
+================================================== */
+
+.best-preview {
+    display: none;
+
+    margin-top: 20px;
+    padding: 16px;
+
+    background: #f0fdf4;
+
+    border-radius: 15px;
+}
+
+.best-preview-title {
+    margin-bottom: 8px;
+
+    color: #059669;
+
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.best-preview-record {
+    color: #475569;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* ==================================================
+   게임 화면
+================================================== */
+
+#gameScreen {
+    display: none;
+}
+
+
+/* ==================================================
+   플레이어
+================================================== */
+
+.player-line {
+    margin-bottom: 18px;
+
+    color: #64748b;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+.player-line strong {
+    color: #059669;
+}
+
+
+/* ==================================================
    게임 정보
-======================================== */
+================================================== */
 
 .game-info {
     display: grid;
@@ -152,7 +402,7 @@ h1 {
 
     gap: 10px;
 
-    margin-bottom: 25px;
+    margin-bottom: 22px;
 }
 
 .info-box {
@@ -179,13 +429,13 @@ h1 {
     color: #334155;
 
     font-size: 18px;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 
-/* ========================================
-   안내 문구
-======================================== */
+/* ==================================================
+   안내
+================================================== */
 
 .message {
     min-height: 24px;
@@ -197,13 +447,13 @@ h1 {
     text-align: center;
 
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 
-/* ========================================
-   카드 영역
-======================================== */
+/* ==================================================
+   카드
+================================================== */
 
 .cards {
     display: grid;
@@ -215,11 +465,6 @@ h1 {
 
     width: 100%;
 }
-
-
-/* ========================================
-   카드 버튼
-======================================== */
 
 .card {
     position: relative;
@@ -247,20 +492,10 @@ h1 {
     touch-action: manipulation;
 }
 
-
-/*
-중요
-
-카드 실제 크기를
-부모 버튼과 정확히 동일하게 만든다.
-*/
-
 .card-inner {
     position: absolute;
 
     inset: 0;
-
-    display: block;
 
     width: 100%;
     height: 100%;
@@ -274,30 +509,20 @@ h1 {
     pointer-events: none;
 }
 
-
-/* ========================================
-   카드 뒤집기
-======================================== */
-
 .card.flipped .card-inner,
 .card.matched .card-inner {
     transform: rotateY(180deg);
 }
-
-
-/* ========================================
-   카드 앞/뒤 공통
-======================================== */
 
 .card-face {
     position: absolute;
 
     inset: 0;
 
-    display: flex;
-
     width: 100%;
     height: 100%;
+
+    display: flex;
 
     justify-content: center;
     align-items: center;
@@ -313,9 +538,7 @@ h1 {
 }
 
 
-/* ========================================
-   카드 뒷면
-======================================== */
+/* 카드 뒷면 */
 
 .card-back {
     background:
@@ -349,16 +572,14 @@ h1 {
 
     border-radius: 50%;
 
-    color: white;
+    color: #fff;
 
     font-size: 22px;
     font-weight: 900;
 }
 
 
-/* ========================================
-   카드 앞면
-======================================== */
+/* 카드 앞면 */
 
 .card-front {
     background: #fff;
@@ -375,24 +596,14 @@ h1 {
         clamp(30px, 7vw, 48px);
 }
 
-
-/* ========================================
-   맞춘 카드
-======================================== */
-
 .card.matched .card-front {
     background: #ecfdf5;
+
     border-color: #34d399;
 }
 
-
-/* ========================================
-   카드 맞췄을 때 효과
-======================================== */
-
 .card.just-matched {
-    animation:
-        matchPop .45s ease;
+    animation: matchPop .45s ease;
 }
 
 @keyframes matchPop {
@@ -402,7 +613,7 @@ h1 {
     }
 
     50% {
-        transform: scale(1.08);
+        transform: scale(1.07);
     }
 
     100% {
@@ -412,9 +623,9 @@ h1 {
 }
 
 
-/* ========================================
-   다시 시작
-======================================== */
+/* ==================================================
+   게임 재시작
+================================================== */
 
 .controls {
     margin-top: 25px;
@@ -432,56 +643,71 @@ h1 {
 
     color: white;
 
-    font-family: inherit;
-
     font-size: 15px;
     font-weight: 800;
 
     cursor: pointer;
-
-    transition: .2s;
-}
-
-.restart-btn:hover {
-    background: #059669;
-
-    transform: translateY(-1px);
 }
 
 
-/* ========================================
-   완료 화면
-======================================== */
+/* ==================================================
+   결과
+================================================== */
 
-.complete {
+#resultScreen {
     display: none;
-
-    padding: 35px 20px;
 
     text-align: center;
 }
 
-.complete-icon {
-    margin-bottom: 10px;
+.result-icon {
+    margin-bottom: 8px;
 
     font-size: 68px;
 }
 
-.complete h2 {
-    margin-bottom: 10px;
+.result-small {
+    margin-bottom: 5px;
 
-    font-size: 30px;
+    color: #94a3b8;
+
+    font-size: 12px;
+    font-weight: 800;
 }
 
-.complete-text {
-    margin-bottom: 25px;
+.result-name {
+    margin-bottom: 5px;
+
+    color: #334155;
+
+    font-size: 27px;
+    font-weight: 900;
+}
+
+.result-grade {
+    margin-bottom: 10px;
+
+    color: #059669;
+
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.result-message {
+    margin-bottom: 24px;
 
     color: #64748b;
 
-    line-height: 1.8;
+    font-size: 14px;
+    line-height: 1.7;
 }
 
-.complete-score {
+
+/* ==================================================
+   결과 기록
+================================================== */
+
+.result-stats {
     display: grid;
 
     grid-template-columns:
@@ -489,10 +715,10 @@ h1 {
 
     gap: 10px;
 
-    margin-bottom: 25px;
+    margin-bottom: 18px;
 }
 
-.complete-score-box {
+.result-stat {
     padding: 18px 10px;
 
     background: #f0fdf4;
@@ -500,7 +726,7 @@ h1 {
     border-radius: 15px;
 }
 
-.complete-score-label {
+.result-stat-label {
     display: block;
 
     margin-bottom: 5px;
@@ -510,23 +736,226 @@ h1 {
     font-size: 12px;
 }
 
-.complete-score-value {
+.result-stat-value {
     color: #059669;
 
     font-size: 23px;
     font-weight: 900;
 }
 
-.complete-buttons {
-    display: grid;
 
-    gap: 10px;
+/* ==================================================
+   친구 도전 결과
+================================================== */
+
+.challenge-result {
+    display: none;
+
+    margin-bottom: 18px;
+    padding: 18px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #fefce8
+        );
+
+    border: 1px solid #fde68a;
 }
 
-.play-again-btn,
-.complete-home-btn {
-    width: 100%;
+.challenge-result-title {
+    margin-bottom: 7px;
 
+    color: #d97706;
+
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.challenge-result-text {
+    color: #78350f;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* ==================================================
+   최고 기록
+================================================== */
+
+.best-box {
+    margin-bottom: 18px;
+    padding: 19px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f3ff,
+            #eff6ff
+        );
+
+    border-radius: 17px;
+}
+
+.best-title {
+    margin-bottom: 10px;
+
+    color: #6d28d9;
+
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.best-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 8px;
+}
+
+.best-item {
+    padding: 12px 8px;
+
+    background: rgba(255,255,255,.75);
+
+    border-radius: 12px;
+}
+
+.best-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+.best-value {
+    color: #475569;
+
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.new-record {
+    display: none;
+
+    margin-top: 10px;
+
+    color: #7c3aed;
+
+    font-size: 13px;
+    font-weight: 900;
+}
+
+
+/* ==================================================
+   공유
+================================================== */
+
+.share-area {
+    margin-bottom: 18px;
+    padding: 19px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ecfdf5,
+            #f0fdfa
+        );
+
+    border-radius: 17px;
+}
+
+.share-title {
+    margin-bottom: 5px;
+
+    color: #047857;
+
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.share-description {
+    margin-bottom: 14px;
+
+    color: #64748b;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.share-buttons {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 8px;
+}
+
+.share-btn,
+.copy-btn {
+    min-height: 48px;
+
+    border-radius: 13px;
+
+    font-size: 13px;
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.share-btn {
+    border: 0;
+
+    background: #10b981;
+
+    color: white;
+}
+
+.copy-btn {
+    border: 2px solid #a7f3d0;
+
+    background: white;
+
+    color: #059669;
+}
+
+.copy-message {
+    display: none;
+
+    margin-top: 11px;
+
+    color: #059669;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+
+/* ==================================================
+   결과 하단 버튼
+================================================== */
+
+.result-buttons {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 9px;
+}
+
+.again-btn,
+.result-home-btn {
     min-height: 52px;
 
     display: flex;
@@ -536,36 +965,39 @@ h1 {
 
     border-radius: 14px;
 
-    font-family: inherit;
-
-    font-size: 15px;
-    font-weight: 800;
+    font-size: 14px;
+    font-weight: 900;
 
     text-decoration: none;
 }
 
-.play-again-btn {
+.again-btn {
     border: 0;
 
-    background: #10b981;
+    background:
+        linear-gradient(
+            135deg,
+            #10b981,
+            #14b8a6
+        );
 
-    color: white;
+    color: #fff;
 
     cursor: pointer;
 }
 
-.complete-home-btn {
-    background: #f8fafc;
-
+.result-home-btn {
     border: 2px solid #e2e8f0;
+
+    background: #f8fafc;
 
     color: #475569;
 }
 
 
-/* ========================================
+/* ==================================================
    색종이
-======================================== */
+================================================== */
 
 #confettiCanvas {
     position: fixed;
@@ -575,15 +1007,15 @@ h1 {
     width: 100%;
     height: 100%;
 
-    pointer-events: none;
-
     z-index: 9999;
+
+    pointer-events: none;
 }
 
 
-/* ========================================
+/* ==================================================
    모바일
-======================================== */
+================================================== */
 
 @media(max-width:600px) {
 
@@ -596,7 +1028,7 @@ h1 {
     }
 
     .game-box {
-        padding: 20px 15px;
+        padding: 22px 16px;
 
         border-radius: 21px;
     }
@@ -625,6 +1057,11 @@ h1 {
         font-size: 16px;
     }
 
+    .result-buttons,
+    .share-buttons {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 </style>
@@ -640,9 +1077,7 @@ h1 {
 <main class="wrap">
 
 
-    <!-- ====================================
-         메인으로
-    ===================================== -->
+    <!-- 메인 -->
 
     <a
         href="../"
@@ -653,9 +1088,7 @@ h1 {
 
 
 
-    <!-- ====================================
-         제목
-    ===================================== -->
+    <!-- 제목 -->
 
     <header class="header">
 
@@ -669,24 +1102,147 @@ h1 {
 
         <p>
             같은 그림의 카드 두 장을 찾아보세요.<br>
-            카드의 위치를 얼마나 잘 기억할 수 있을까요?
+            친구에게 내 기록을 공유하고 도전장을 보내보세요!
         </p>
 
     </header>
 
 
 
-    <!-- ====================================
-         게임
-    ===================================== -->
+    <!-- ==================================================
+         시작 화면
+    =================================================== -->
 
     <section
-        class="game-box"
-        id="gameBox"
+        class="game-box start-screen"
+        id="startScreen"
     >
 
 
-        <!-- 게임 정보 -->
+        <div class="start-emoji">
+            🧠
+        </div>
+
+
+        <h2>
+            기억력에 도전해볼까요?
+        </h2>
+
+
+        <p class="start-description">
+            게임을 시작하면 카드가 잠시 공개됩니다.<br>
+            위치를 잘 기억하고 같은 그림을 찾아보세요!
+        </p>
+
+
+
+        <!-- 친구 도전 -->
+
+        <div
+            class="challenge-box"
+            id="challengeBox"
+        >
+
+            <div class="challenge-label">
+                🔥 친구의 기록에 도전하세요!
+            </div>
+
+            <div
+                class="challenge-name"
+                id="challengeName"
+            ></div>
+
+            <div
+                class="challenge-record"
+                id="challengeRecord"
+            ></div>
+
+            <div class="challenge-text">
+                이 기록보다 더 빠르게 성공할 수 있을까요?
+            </div>
+
+        </div>
+
+
+
+        <!-- 닉네임 -->
+
+        <div class="name-area">
+
+            <label for="nickname">
+                닉네임
+            </label>
+
+            <input
+                type="text"
+                id="nickname"
+                class="name-input"
+                maxlength="12"
+                placeholder="닉네임을 입력해주세요"
+                autocomplete="off"
+            >
+
+            <div
+                class="name-error"
+                id="nameError"
+            >
+                닉네임을 입력해주세요.
+            </div>
+
+        </div>
+
+
+
+        <button
+            type="button"
+            class="start-btn"
+            id="startBtn"
+        >
+            🎮 게임 시작
+        </button>
+
+
+
+        <!-- 저장된 최고 기록 -->
+
+        <div
+            class="best-preview"
+            id="bestPreview"
+        >
+
+            <div class="best-preview-title">
+                🏅 이 브라우저의 최고 기록
+            </div>
+
+            <div
+                class="best-preview-record"
+                id="bestPreviewRecord"
+            ></div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         게임 화면
+    =================================================== -->
+
+    <section
+        class="game-box"
+        id="gameScreen"
+    >
+
+
+        <div class="player-line">
+
+            <strong id="playerName"></strong>님의 도전
+
+        </div>
+
+
 
         <div class="game-info">
 
@@ -745,8 +1301,6 @@ h1 {
 
 
 
-        <!-- 안내 -->
-
         <div
             class="message"
             id="message"
@@ -756,16 +1310,12 @@ h1 {
 
 
 
-        <!-- 카드 -->
-
         <div
             class="cards"
             id="cards"
         ></div>
 
 
-
-        <!-- 다시 시작 -->
 
         <div class="controls">
 
@@ -784,61 +1334,58 @@ h1 {
 
 
 
-    <!-- ====================================
-         완료
-    ===================================== -->
+    <!-- ==================================================
+         결과 화면
+    =================================================== -->
 
     <section
-        class="game-box complete"
-        id="completeScreen"
+        class="game-box"
+        id="resultScreen"
     >
 
 
-        <div class="complete-icon">
+        <div class="result-icon">
             🏆
         </div>
 
 
-        <h2>
-            성공!
-        </h2>
-
-
-        <div class="complete-text">
-            모든 카드의 짝을 찾았어요!<br>
-            기억력이 정말 좋네요.
+        <div class="result-small">
+            게임 완료!
         </div>
 
 
+        <div
+            class="result-name"
+            id="resultName"
+        ></div>
 
-        <div class="complete-score">
+
+        <div
+            class="result-grade"
+            id="resultGrade"
+        ></div>
 
 
-            <div class="complete-score-box">
+        <div
+            class="result-message"
+            id="resultMessage"
+        ></div>
 
-                <span class="complete-score-label">
-                    총 시도
+
+
+        <!-- 기록 -->
+
+        <div class="result-stats">
+
+
+            <div class="result-stat">
+
+                <span class="result-stat-label">
+                    ⏱ 플레이 시간
                 </span>
 
                 <span
-                    class="complete-score-value"
-                    id="finalAttempts"
-                >
-                    0회
-                </span>
-
-            </div>
-
-
-
-            <div class="complete-score-box">
-
-                <span class="complete-score-label">
-                    걸린 시간
-                </span>
-
-                <span
-                    class="complete-score-value"
+                    class="result-stat-value"
                     id="finalTime"
                 >
                     00:00
@@ -847,17 +1394,160 @@ h1 {
             </div>
 
 
+            <div class="result-stat">
+
+                <span class="result-stat-label">
+                    🎯 시도 횟수
+                </span>
+
+                <span
+                    class="result-stat-value"
+                    id="finalAttempts"
+                >
+                    0회
+                </span>
+
+            </div>
+
+
         </div>
 
 
 
-        <div class="complete-buttons">
+        <!-- 친구와 비교 -->
 
+        <div
+            class="challenge-result"
+            id="challengeResult"
+        >
+
+            <div
+                class="challenge-result-title"
+                id="challengeResultTitle"
+            ></div>
+
+            <div
+                class="challenge-result-text"
+                id="challengeResultText"
+            ></div>
+
+        </div>
+
+
+
+        <!-- 최고 기록 -->
+
+        <div class="best-box">
+
+            <div class="best-title">
+                🥇 나의 최고 기록
+            </div>
+
+
+            <div class="best-grid">
+
+
+                <div class="best-item">
+
+                    <span class="best-label">
+                        최고 시간
+                    </span>
+
+                    <span
+                        class="best-value"
+                        id="bestTime"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="best-item">
+
+                    <span class="best-label">
+                        최소 시도
+                    </span>
+
+                    <span
+                        class="best-value"
+                        id="bestAttempts"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                class="new-record"
+                id="newRecord"
+            >
+                ✨ 새로운 최고 기록이에요!
+            </div>
+
+
+        </div>
+
+
+
+        <!-- 공유 -->
+
+        <div class="share-area">
+
+            <div class="share-title">
+                🔥 친구에게 도전장 보내기
+            </div>
+
+            <div class="share-description">
+                내 기록이 담긴 링크를 공유하면
+                친구가 바로 이 기록에 도전할 수 있어요.
+            </div>
+
+
+            <div class="share-buttons">
+
+                <button
+                    type="button"
+                    class="share-btn"
+                    id="shareBtn"
+                >
+                    📤 기록 공유하기
+                </button>
+
+
+                <button
+                    type="button"
+                    class="copy-btn"
+                    id="copyBtn"
+                >
+                    🔗 도전 링크 복사
+                </button>
+
+            </div>
+
+
+            <div
+                class="copy-message"
+                id="copyMessage"
+            >
+                ✓ 복사되었습니다!
+            </div>
+
+
+        </div>
+
+
+
+        <div class="result-buttons">
 
             <button
                 type="button"
-                class="play-again-btn"
-                id="playAgainBtn"
+                class="again-btn"
+                id="againBtn"
             >
                 🔄 다시 도전하기
             </button>
@@ -865,11 +1555,10 @@ h1 {
 
             <a
                 href="../"
-                class="complete-home-btn"
+                class="result-home-btn"
             >
                 🏠 메인으로 가기
             </a>
-
 
         </div>
 
@@ -883,9 +1572,9 @@ h1 {
 
 <script>
 
-/* ========================================
-   카드 이미지
-======================================== */
+/* ==================================================
+   카드
+================================================== */
 
 const cardImages = [
     "🍎",
@@ -899,9 +1588,11 @@ const cardImages = [
 ];
 
 
-/* ========================================
+/* ==================================================
    변수
-======================================== */
+================================================== */
+
+let playerNickname = "";
 
 let firstCard = null;
 let secondCard = null;
@@ -913,13 +1604,31 @@ let matches = 0;
 let seconds = 0;
 
 let timer = null;
-
 let previewTimer = null;
 
+let currentGrade = "";
 
-/* ========================================
+let challengeData = null;
+
+
+/* ==================================================
    요소
-======================================== */
+================================================== */
+
+const startScreen =
+    document.getElementById("startScreen");
+
+const gameScreen =
+    document.getElementById("gameScreen");
+
+const resultScreen =
+    document.getElementById("resultScreen");
+
+const nicknameInput =
+    document.getElementById("nickname");
+
+const nameError =
+    document.getElementById("nameError");
 
 const cardsEl =
     document.getElementById("cards");
@@ -936,24 +1645,285 @@ const matchCountEl =
 const timeCountEl =
     document.getElementById("timeCount");
 
-const gameBox =
-    document.getElementById("gameBox");
-
-const completeScreen =
-    document.getElementById("completeScreen");
+const copyMessage =
+    document.getElementById("copyMessage");
 
 
-/* ========================================
+/* ==================================================
+   HTML 안전 처리
+================================================== */
+
+function escapeHTML(text) {
+
+    return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* ==================================================
+   URL의 친구 도전 기록 확인
+================================================== */
+
+function checkChallenge() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const name =
+        params.get("name");
+
+    const time =
+        parseInt(
+            params.get("time"),
+            10
+        );
+
+    const challengeAttempts =
+        parseInt(
+            params.get("attempts"),
+            10
+        );
+
+
+    if (
+        name &&
+        Number.isFinite(time) &&
+        Number.isFinite(challengeAttempts) &&
+        time > 0 &&
+        challengeAttempts >= 8
+    ) {
+
+        challengeData = {
+            name:
+                name.substring(0, 12),
+
+            time:
+                time,
+
+            attempts:
+                challengeAttempts
+        };
+
+
+        document
+            .getElementById(
+                "challengeBox"
+            )
+            .style.display =
+                "block";
+
+
+        document
+            .getElementById(
+                "challengeName"
+            )
+            .textContent =
+                `${challengeData.name}님의 기록`;
+
+
+        document
+            .getElementById(
+                "challengeRecord"
+            )
+            .textContent =
+                `⏱ ${formatTime(challengeData.time)} · 🎯 ${challengeData.attempts}회`;
+
+    }
+
+}
+
+
+/* ==================================================
+   최고 기록 표시
+================================================== */
+
+function loadBestRecord() {
+
+    const bestTime =
+        parseInt(
+            localStorage.getItem(
+                "memoryBestTime"
+            ),
+            10
+        );
+
+
+    const bestAttempts =
+        parseInt(
+            localStorage.getItem(
+                "memoryBestAttempts"
+            ),
+            10
+        );
+
+
+    if (
+        Number.isFinite(bestTime) ||
+        Number.isFinite(bestAttempts)
+    ) {
+
+        document
+            .getElementById(
+                "bestPreview"
+            )
+            .style.display =
+                "block";
+
+
+        let text = "";
+
+
+        if (
+            Number.isFinite(bestTime)
+        ) {
+
+            text +=
+                `⏱ 최고 시간 ${formatTime(bestTime)}`;
+
+        }
+
+
+        if (
+            Number.isFinite(bestAttempts)
+        ) {
+
+            if (text) {
+                text += " · ";
+            }
+
+            text +=
+                `🎯 최소 ${bestAttempts}회`;
+
+        }
+
+
+        document
+            .getElementById(
+                "bestPreviewRecord"
+            )
+            .textContent =
+                text;
+
+    }
+
+}
+
+
+/* ==================================================
+   시작
+================================================== */
+
+document
+    .getElementById(
+        "startBtn"
+    )
+    .addEventListener(
+        "click",
+        startGameFromName
+    );
+
+
+nicknameInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            startGameFromName();
+
+        }
+
+    }
+);
+
+
+function startGameFromName() {
+
+    const name =
+        nicknameInput.value.trim();
+
+
+    if (!name) {
+
+        nameError.style.display =
+            "block";
+
+        nicknameInput.focus();
+
+        return;
+
+    }
+
+
+    nameError.style.display =
+        "none";
+
+
+    playerNickname =
+        name.substring(0, 12);
+
+
+    /*
+    마지막 닉네임 저장
+    */
+
+    localStorage.setItem(
+        "memoryNickname",
+        playerNickname
+    );
+
+
+    startScreen.style.display =
+        "none";
+
+
+    resultScreen.style.display =
+        "none";
+
+
+    gameScreen.style.display =
+        "block";
+
+
+    document
+        .getElementById(
+            "playerName"
+        )
+        .textContent =
+            playerNickname;
+
+
+    createGame();
+
+}
+
+
+/* ==================================================
    배열 섞기
-======================================== */
+================================================== */
 
 function shuffle(array) {
 
-    const copiedArray = [...array];
+    const copied =
+        [...array];
+
 
     for (
-        let i = copiedArray.length - 1;
+        let i =
+            copied.length - 1;
+
         i > 0;
+
         i--
     ) {
 
@@ -963,41 +1933,36 @@ function shuffle(array) {
                 (i + 1)
             );
 
+
         [
-            copiedArray[i],
-            copiedArray[j]
+            copied[i],
+            copied[j]
 
         ] = [
 
-            copiedArray[j],
-            copiedArray[i]
+            copied[j],
+            copied[i]
 
         ];
 
     }
 
-    return copiedArray;
+
+    return copied;
 
 }
 
 
-/* ========================================
-   게임 생성
-======================================== */
+/* ==================================================
+   게임 만들기
+================================================== */
 
 function createGame() {
 
-    /*
-    기존 타이머 제거
-    */
-
     clearInterval(timer);
+
     clearTimeout(previewTimer);
 
-
-    /*
-    변수 초기화
-    */
 
     firstCard = null;
     secondCard = null;
@@ -1009,41 +1974,25 @@ function createGame() {
     seconds = 0;
 
 
-    /*
-    화면 초기화
-    */
-
     attemptCountEl.textContent =
         "0";
+
 
     matchCountEl.textContent =
         `0 / ${cardImages.length}`;
 
+
     timeCountEl.textContent =
         "00:00";
+
 
     messageEl.textContent =
         "카드 위치를 기억하세요!";
 
 
-    gameBox.style.display =
-        "block";
-
-    completeScreen.style.display =
-        "none";
-
-
-    /*
-    기존 카드 제거
-    */
-
     cardsEl.innerHTML =
         "";
 
-
-    /*
-    카드 두 세트 만들기
-    */
 
     const deck =
         shuffle([
@@ -1052,12 +2001,9 @@ function createGame() {
         ]);
 
 
-    /*
-    실제 카드 생성
-    */
-
     deck.forEach(
         (image, index) => {
+
 
             const card =
                 document.createElement(
@@ -1068,11 +2014,6 @@ function createGame() {
             card.type =
                 "button";
 
-
-            /*
-            처음에는 앞면이 보이도록
-            flipped 클래스 적용
-            */
 
             card.className =
                 "card flipped";
@@ -1092,10 +2033,6 @@ function createGame() {
             );
 
 
-            /*
-            div 구조로 생성
-            */
-
             card.innerHTML = `
 
                 <div class="card-inner">
@@ -1111,11 +2048,6 @@ function createGame() {
 
             `;
 
-
-            /*
-            클릭 이벤트는
-            카드 버튼 하나에만 적용
-            */
 
             card.addEventListener(
                 "click",
@@ -1136,12 +2068,13 @@ function createGame() {
 
 
     /*
-    2초 동안 카드 위치 보여주기
+    2초 동안 카드 전체 공개
     */
 
     previewTimer =
         setTimeout(
             () => {
+
 
                 document
                     .querySelectorAll(
@@ -1175,19 +2108,21 @@ function createGame() {
 }
 
 
-/* ========================================
-   타이머
-======================================== */
+/* ==================================================
+   시간
+================================================== */
 
 function startTimer() {
 
     clearInterval(timer);
+
 
     timer =
         setInterval(
             () => {
 
                 seconds++;
+
 
                 timeCountEl.textContent =
                     formatTime(
@@ -1208,6 +2143,7 @@ function formatTime(totalSeconds) {
             totalSeconds / 60
         );
 
+
     const secs =
         totalSeconds % 60;
 
@@ -1225,24 +2161,23 @@ function formatTime(totalSeconds) {
 }
 
 
-/* ========================================
+/* ==================================================
    카드 클릭
-======================================== */
+================================================== */
 
 function flipCard(card) {
-
-    /*
-    판정 중 클릭 금지
-    */
 
     if (lockBoard) {
         return;
     }
 
 
-    /*
-    이미 맞춘 카드
-    */
+    if (
+        card === firstCard
+    ) {
+        return;
+    }
+
 
     if (
         card.classList.contains(
@@ -1253,29 +2188,10 @@ function flipCard(card) {
     }
 
 
-    /*
-    같은 카드 두 번 클릭 방지
-    */
-
-    if (
-        card === firstCard
-    ) {
-        return;
-    }
-
-
-    /*
-    카드 열기
-    */
-
     card.classList.add(
         "flipped"
     );
 
-
-    /*
-    첫 번째 카드
-    */
 
     if (!firstCard) {
 
@@ -1287,24 +2203,16 @@ function flipCard(card) {
     }
 
 
-    /*
-    두 번째 카드
-    */
-
     secondCard =
         card;
 
-
-    /*
-    판정이 끝날 때까지
-    추가 클릭 차단
-    */
 
     lockBoard =
         true;
 
 
     attempts++;
+
 
     attemptCountEl.textContent =
         attempts;
@@ -1315,14 +2223,13 @@ function flipCard(card) {
 }
 
 
-/* ========================================
-   카드 비교
-======================================== */
+/* ==================================================
+   비교
+================================================== */
 
 function checkMatch() {
 
     const isMatch =
-
         firstCard.dataset.image ===
         secondCard.dataset.image;
 
@@ -1342,9 +2249,9 @@ function checkMatch() {
 }
 
 
-/* ========================================
-   정답
-======================================== */
+/* ==================================================
+   맞음
+================================================== */
 
 function handleMatch() {
 
@@ -1359,6 +2266,7 @@ function handleMatch() {
         "matched",
         "just-matched"
     );
+
 
     card2.classList.add(
         "matched",
@@ -1381,10 +2289,6 @@ function handleMatch() {
     secondCard = null;
 
 
-    /*
-    애니메이션 클래스 제거
-    */
-
     setTimeout(
         () => {
 
@@ -1401,10 +2305,6 @@ function handleMatch() {
     );
 
 
-    /*
-    모든 카드 완료
-    */
-
     if (
         matches ===
         cardImages.length
@@ -1412,7 +2312,7 @@ function handleMatch() {
 
         setTimeout(
             finishGame,
-            700
+            650
         );
 
         return;
@@ -1420,29 +2320,26 @@ function handleMatch() {
     }
 
 
-    /*
-    다음 선택 가능
-    */
-
     setTimeout(
         () => {
 
             lockBoard =
                 false;
 
+
             messageEl.textContent =
                 "같은 그림의 카드 두 장을 찾아보세요!";
 
         },
-        450
+        400
     );
 
 }
 
 
-/* ========================================
-   오답
-======================================== */
+/* ==================================================
+   틀림
+================================================== */
 
 function handleMismatch() {
 
@@ -1463,6 +2360,7 @@ function handleMismatch() {
             card1.classList.remove(
                 "flipped"
             );
+
 
             card2.classList.remove(
                 "flipped"
@@ -1487,24 +2385,144 @@ function handleMismatch() {
 }
 
 
-/* ========================================
-   완료
-======================================== */
+/* ==================================================
+   등급
+================================================== */
+
+function getGrade(attemptCount) {
+
+    /*
+    카드 8쌍이므로
+    이론적인 최소 시도 횟수는 8회
+    */
+
+    if (
+        attemptCount <= 9
+    ) {
+
+        return {
+            icon: "👑",
+            title: "기억력 천재!",
+            message:
+                "거의 모든 카드의 위치를 기억했어요. 놀라운 기억력이에요!"
+        };
+
+    }
+
+
+    if (
+        attemptCount <= 12
+    ) {
+
+        return {
+            icon: "🏆",
+            title: "기억력 마스터!",
+            message:
+                "아주 뛰어난 기록이에요. 친구에게 도전장을 보내보세요!"
+        };
+
+    }
+
+
+    if (
+        attemptCount <= 16
+    ) {
+
+        return {
+            icon: "⭐",
+            title: "기억력 고수!",
+            message:
+                "좋은 기억력이에요. 한 번 더 도전하면 기록을 줄일 수 있어요!"
+        };
+
+    }
+
+
+    if (
+        attemptCount <= 22
+    ) {
+
+        return {
+            icon: "👍",
+            title: "집중력 최고!",
+            message:
+                "끝까지 집중해서 모든 카드를 찾았어요!"
+        };
+
+    }
+
+
+    return {
+        icon: "🌱",
+        title: "기억력 성장 중!",
+        message:
+            "한 번 더 도전해보세요. 카드 위치가 점점 더 잘 보일 거예요!"
+    };
+
+}
+
+
+/* ==================================================
+   게임 완료
+================================================== */
 
 function finishGame() {
 
     clearInterval(timer);
 
+
     lockBoard =
         true;
 
 
+    const grade =
+        getGrade(
+            attempts
+        );
+
+
+    currentGrade =
+        grade.title;
+
+
+    gameScreen.style.display =
+        "none";
+
+
+    resultScreen.style.display =
+        "block";
+
+
     document
-        .getElementById(
-            "finalAttempts"
+        .querySelector(
+            ".result-icon"
         )
         .textContent =
-            `${attempts}회`;
+            grade.icon;
+
+
+    document
+        .getElementById(
+            "resultName"
+        )
+        .textContent =
+            `${playerNickname}님의 기록`;
+
+
+    document
+        .getElementById(
+            "resultGrade"
+        )
+        .textContent =
+            grade.title;
+
+
+    document
+        .getElementById(
+            "resultMessage"
+        )
+        .textContent =
+            grade.message;
 
 
     document
@@ -1517,15 +2535,27 @@ function finishGame() {
             );
 
 
-    gameBox.style.display =
+    document
+        .getElementById(
+            "finalAttempts"
+        )
+        .textContent =
+            `${attempts}회`;
+
+
+    saveBestRecord();
+
+
+    compareChallenge();
+
+
+    copyMessage.style.display =
         "none";
 
 
-    completeScreen.style.display =
-        "block";
-
-
-    launchConfetti(220);
+    launchConfetti(
+        220
+    );
 
 
     window.scrollTo({
@@ -1536,9 +2566,545 @@ function finishGame() {
 }
 
 
-/* ========================================
-   다시 시작
-======================================== */
+/* ==================================================
+   최고 기록 저장
+================================================== */
+
+function saveBestRecord() {
+
+    const oldBestTime =
+        parseInt(
+            localStorage.getItem(
+                "memoryBestTime"
+            ),
+            10
+        );
+
+
+    const oldBestAttempts =
+        parseInt(
+            localStorage.getItem(
+                "memoryBestAttempts"
+            ),
+            10
+        );
+
+
+    let newBest =
+        false;
+
+
+    /*
+    가장 빠른 시간
+    */
+
+    if (
+        !Number.isFinite(oldBestTime)
+        ||
+        seconds < oldBestTime
+    ) {
+
+        localStorage.setItem(
+            "memoryBestTime",
+            seconds
+        );
+
+
+        newBest =
+            true;
+
+    }
+
+
+    /*
+    가장 적은 시도
+    */
+
+    if (
+        !Number.isFinite(oldBestAttempts)
+        ||
+        attempts < oldBestAttempts
+    ) {
+
+        localStorage.setItem(
+            "memoryBestAttempts",
+            attempts
+        );
+
+
+        newBest =
+            true;
+
+    }
+
+
+    const bestTime =
+        parseInt(
+            localStorage.getItem(
+                "memoryBestTime"
+            ),
+            10
+        );
+
+
+    const bestAttempts =
+        parseInt(
+            localStorage.getItem(
+                "memoryBestAttempts"
+            ),
+            10
+        );
+
+
+    document
+        .getElementById(
+            "bestTime"
+        )
+        .textContent =
+            formatTime(
+                bestTime
+            );
+
+
+    document
+        .getElementById(
+            "bestAttempts"
+        )
+        .textContent =
+            `${bestAttempts}회`;
+
+
+    document
+        .getElementById(
+            "newRecord"
+        )
+        .style.display =
+            newBest
+            ? "block"
+            : "none";
+
+
+    loadBestRecord();
+
+}
+
+
+/* ==================================================
+   친구 기록과 비교
+================================================== */
+
+function compareChallenge() {
+
+    const box =
+        document.getElementById(
+            "challengeResult"
+        );
+
+
+    if (!challengeData) {
+
+        box.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    box.style.display =
+        "block";
+
+
+    const title =
+        document.getElementById(
+            "challengeResultTitle"
+        );
+
+
+    const text =
+        document.getElementById(
+            "challengeResultText"
+        );
+
+
+    /*
+    비교 기준:
+    1. 시도 횟수가 적은 기록 우선
+    2. 시도 횟수가 같으면 시간이 빠른 기록 우선
+    */
+
+    const playerWon =
+        attempts <
+        challengeData.attempts
+        ||
+        (
+            attempts ===
+            challengeData.attempts
+            &&
+            seconds <
+            challengeData.time
+        );
+
+
+    const tied =
+        attempts ===
+        challengeData.attempts
+        &&
+        seconds ===
+        challengeData.time;
+
+
+    if (tied) {
+
+        title.textContent =
+            "🤝 친구와 똑같은 기록!";
+
+
+        text.textContent =
+            `${challengeData.name}님과 ${formatTime(seconds)}, ${attempts}회로 정확히 같은 기록이에요!`;
+
+    }
+
+    else if (playerWon) {
+
+        title.textContent =
+            "🎉 친구의 기록을 깼어요!";
+
+
+        text.textContent =
+            `${challengeData.name}님의 ${formatTime(challengeData.time)} · ${challengeData.attempts}회 기록을 이겼어요! 이제 내 기록으로 다시 도전장을 보내보세요.`;
+
+    }
+
+    else {
+
+        title.textContent =
+            "🔥 아쉽게도 친구 기록 승리!";
+
+
+        text.textContent =
+            `${challengeData.name}님의 기록은 ${formatTime(challengeData.time)} · ${challengeData.attempts}회예요. 다시 한번 도전해보세요!`;
+
+    }
+
+}
+
+
+/* ==================================================
+   도전 링크 만들기
+================================================== */
+
+function getChallengeUrl() {
+
+    const url =
+        new URL(
+            window.location.href
+        );
+
+
+    /*
+    기존 파라미터 제거
+    */
+
+    url.search = "";
+
+
+    url.searchParams.set(
+        "name",
+        playerNickname
+    );
+
+
+    url.searchParams.set(
+        "time",
+        seconds
+    );
+
+
+    url.searchParams.set(
+        "attempts",
+        attempts
+    );
+
+
+    return url.toString();
+
+}
+
+
+/* ==================================================
+   공유 문구
+================================================== */
+
+function getShareText() {
+
+    return (
+        "🃏 기억력 게임 도전!\n\n"
+        +
+        `👤 ${playerNickname}\n`
+        +
+        `⏱ ${formatTime(seconds)}\n`
+        +
+        `🎯 ${attempts}회 시도\n`
+        +
+        `🏆 ${currentGrade}\n\n`
+        +
+        "내 기록을 이길 수 있을까?\n"
+        +
+        "기억력 게임에 도전해보세요!"
+    );
+
+}
+
+
+/* ==================================================
+   SNS / 기본 공유
+================================================== */
+
+document
+    .getElementById(
+        "shareBtn"
+    )
+    .addEventListener(
+        "click",
+        shareRecord
+    );
+
+
+async function shareRecord() {
+
+    const shareData = {
+
+        title:
+            `${playerNickname}님의 기억력 게임 기록`,
+
+        text:
+            getShareText(),
+
+        url:
+            getChallengeUrl()
+
+    };
+
+
+    if (
+        navigator.share
+    ) {
+
+        try {
+
+            await navigator.share(
+                shareData
+            );
+
+        }
+
+        catch (error) {
+
+            /*
+            사용자가 공유창을
+            닫은 경우는 무시
+            */
+
+            if (
+                error.name !==
+                "AbortError"
+            ) {
+
+                copyFullChallenge();
+
+            }
+
+        }
+
+    }
+
+    else {
+
+        copyFullChallenge();
+
+    }
+
+}
+
+
+/* ==================================================
+   링크 복사
+================================================== */
+
+document
+    .getElementById(
+        "copyBtn"
+    )
+    .addEventListener(
+        "click",
+        copyChallengeLink
+    );
+
+
+async function copyChallengeLink() {
+
+    const url =
+        getChallengeUrl();
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            url
+        );
+
+
+        showCopyMessage(
+            "✓ 도전 링크가 복사되었습니다!"
+        );
+
+    }
+
+    catch (error) {
+
+        fallbackCopy(
+            url
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   기록 + 주소 복사
+================================================== */
+
+async function copyFullChallenge() {
+
+    const content =
+        getShareText()
+        +
+        "\n\n"
+        +
+        getChallengeUrl();
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            content
+        );
+
+
+        showCopyMessage(
+            "✓ 기록과 도전 링크가 복사되었습니다!"
+        );
+
+    }
+
+    catch (error) {
+
+        fallbackCopy(
+            content
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   복사 대체 방식
+================================================== */
+
+function fallbackCopy(text) {
+
+    const textarea =
+        document.createElement(
+            "textarea"
+        );
+
+
+    textarea.value =
+        text;
+
+
+    textarea.style.position =
+        "fixed";
+
+
+    textarea.style.left =
+        "-9999px";
+
+
+    document.body.appendChild(
+        textarea
+    );
+
+
+    textarea.select();
+
+
+    try {
+
+        document.execCommand(
+            "copy"
+        );
+
+
+        showCopyMessage(
+            "✓ 복사되었습니다!"
+        );
+
+    }
+
+    catch (error) {
+
+        alert(
+            "복사하지 못했습니다. 주소창의 링크를 직접 복사해주세요."
+        );
+
+    }
+
+
+    textarea.remove();
+
+}
+
+
+/* ==================================================
+   복사 메시지
+================================================== */
+
+function showCopyMessage(message) {
+
+    copyMessage.textContent =
+        message;
+
+
+    copyMessage.style.display =
+        "block";
+
+
+    clearTimeout(
+        showCopyMessage.timer
+    );
+
+
+    showCopyMessage.timer =
+        setTimeout(
+            () => {
+
+                copyMessage.style.display =
+                    "none";
+
+            },
+            2500
+        );
+
+}
+
+
+/* ==================================================
+   게임 다시 시작
+================================================== */
 
 document
     .getElementById(
@@ -1546,23 +3112,45 @@ document
     )
     .addEventListener(
         "click",
-        createGame
+        () => {
+
+            createGame();
+
+        }
     );
 
 
 document
     .getElementById(
-        "playAgainBtn"
+        "againBtn"
     )
     .addEventListener(
         "click",
-        createGame
+        () => {
+
+            resultScreen.style.display =
+                "none";
+
+
+            gameScreen.style.display =
+                "block";
+
+
+            createGame();
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
     );
 
 
-/* ========================================
+/* ==================================================
    색종이
-======================================== */
+================================================== */
 
 const confettiCanvas =
     document.getElementById(
@@ -1577,6 +3165,7 @@ const ctx =
 
 
 let confettiPieces = [];
+
 let confettiAnimation = null;
 
 
@@ -1592,9 +3181,9 @@ const confettiColors = [
 ];
 
 
-/* ========================================
-   캔버스 크기
-======================================== */
+/* ==================================================
+   캔버스
+================================================== */
 
 function resizeCanvas() {
 
@@ -1646,11 +3235,13 @@ window.addEventListener(
 resizeCanvas();
 
 
-/* ========================================
+/* ==================================================
    색종이 발사
-======================================== */
+================================================== */
 
-function launchConfetti(amount = 180) {
+function launchConfetti(
+    amount = 180
+) {
 
     const centerX =
         window.innerWidth / 2;
@@ -1669,59 +3260,76 @@ function launchConfetti(amount = 180) {
         confettiPieces.push({
 
             x:
-                centerX +
-                (Math.random() - .5) *
+                centerX
+                +
+                (Math.random() - .5)
+                *
                 120,
 
             y:
                 startY,
 
             vx:
-                (Math.random() - .5) *
+                (Math.random() - .5)
+                *
                 13,
 
             vy:
                 -(
-                    Math.random() *
-                    10 +
+                    Math.random()
+                    *
+                    10
+                    +
                     16
                 ),
 
             gravity:
-                Math.random() *
-                .12 +
+                Math.random()
+                *
+                .12
+                +
                 .28,
 
             rotation:
-                Math.random() *
-                Math.PI *
+                Math.random()
+                *
+                Math.PI
+                *
                 2,
 
             rotationSpeed:
-                (Math.random() - .5) *
+                (Math.random() - .5)
+                *
                 .3,
 
             width:
-                Math.random() *
-                9 +
+                Math.random()
+                *
+                9
+                +
                 5,
 
             height:
-                Math.random() *
-                7 +
+                Math.random()
+                *
+                7
+                +
                 4,
 
             color:
                 confettiColors[
                     Math.floor(
-                        Math.random() *
+                        Math.random()
+                        *
                         confettiColors.length
                     )
                 ],
 
             wobble:
-                Math.random() *
-                Math.PI *
+                Math.random()
+                *
+                Math.PI
+                *
                 2,
 
             opacity:
@@ -1737,14 +3345,18 @@ function launchConfetti(amount = 180) {
 }
 
 
-/* ========================================
+/* ==================================================
    색종이 애니메이션
-======================================== */
+================================================== */
 
 function startConfetti() {
 
-    if (confettiAnimation) {
+    if (
+        confettiAnimation
+    ) {
+
         return;
+
     }
 
 
@@ -1763,7 +3375,8 @@ function startConfetti() {
                 piece =>
 
                     piece.y <
-                    window.innerHeight +
+                    window.innerHeight
+                    +
                     100
 
                     &&
@@ -1785,7 +3398,8 @@ function startConfetti() {
                     +
                     Math.sin(
                         piece.wobble
-                    ) *
+                    )
+                    *
                     .7;
 
 
@@ -1803,9 +3417,12 @@ function startConfetti() {
 
                 if (
                     piece.y >
-                    window.innerHeight *
+                    window.innerHeight
+                    *
                     .82
+
                     &&
+
                     piece.vy > 0
                 ) {
 
@@ -1892,11 +3509,41 @@ function startConfetti() {
 }
 
 
-/* ========================================
-   시작
-======================================== */
+/* ==================================================
+   처음 페이지 열기
+================================================== */
 
-createGame();
+/*
+저장했던 닉네임이 있으면
+자동으로 입력
+*/
+
+const savedNickname =
+    localStorage.getItem(
+        "memoryNickname"
+    );
+
+
+if (savedNickname) {
+
+    nicknameInput.value =
+        savedNickname;
+
+}
+
+
+/*
+공유받은 도전 기록 확인
+*/
+
+checkChallenge();
+
+
+/*
+내 최고 기록 확인
+*/
+
+loadBestRecord();
 
 </script>
 
