@@ -7,7 +7,6 @@
 <title>기억력 게임</title>
 
 <style>
-
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +15,6 @@
 
 body {
     min-height: 100vh;
-
     padding: 35px 20px;
 
     font-family:
@@ -28,27 +26,18 @@ body {
         sans-serif;
 
     background:
-        radial-gradient(
-            circle at 10% 20%,
-            #e4f8ed 0,
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 80%,
-            #e8e7ff 0,
-            transparent 30%
-        ),
+        radial-gradient(circle at 10% 20%, #e4f8ed 0, transparent 30%),
+        radial-gradient(circle at 90% 80%, #e8e7ff 0, transparent 30%),
         #f7f8fc;
 
     color: #222;
-
     overflow-x: hidden;
 }
 
 
-/* =========================
+/* ========================================
    전체
-========================= */
+======================================== */
 
 .wrap {
     width: 100%;
@@ -57,9 +46,9 @@ body {
 }
 
 
-/* =========================
+/* ========================================
    메인으로
-========================= */
+======================================== */
 
 .home-btn {
     display: inline-flex;
@@ -85,18 +74,16 @@ body {
 
 .home-btn:hover {
     background: #ecfdf5;
-
     border-color: #a7f3d0;
-
     color: #059669;
 
     transform: translateX(-2px);
 }
 
 
-/* =========================
+/* ========================================
    제목
-========================= */
+======================================== */
 
 .header {
     text-align: center;
@@ -135,14 +122,14 @@ h1 {
 }
 
 
-/* =========================
+/* ========================================
    게임 박스
-========================= */
+======================================== */
 
 .game-box {
     padding: 30px;
 
-    background: rgba(255,255,255,.95);
+    background: rgba(255,255,255,.96);
 
     border: 1px solid #e8e8ef;
     border-radius: 26px;
@@ -153,9 +140,9 @@ h1 {
 }
 
 
-/* =========================
+/* ========================================
    게임 정보
-========================= */
+======================================== */
 
 .game-info {
     display: grid;
@@ -196,9 +183,9 @@ h1 {
 }
 
 
-/* =========================
-   안내 메시지
-========================= */
+/* ========================================
+   안내 문구
+======================================== */
 
 .message {
     min-height: 24px;
@@ -214,9 +201,9 @@ h1 {
 }
 
 
-/* =========================
+/* ========================================
    카드 영역
-========================= */
+======================================== */
 
 .cards {
     display: grid;
@@ -230,13 +217,9 @@ h1 {
 }
 
 
-/* =========================
-   카드
-
-   중요:
-   실제 카드 영역에서만
-   클릭되도록 수정
-========================= */
+/* ========================================
+   카드 버튼
+======================================== */
 
 .card {
     position: relative;
@@ -244,7 +227,6 @@ h1 {
     display: block;
 
     width: 100%;
-
     aspect-ratio: 1 / 1;
 
     padding: 0;
@@ -257,9 +239,7 @@ h1 {
 
     cursor: pointer;
 
-    perspective: 800px;
-
-    overflow: hidden;
+    perspective: 1000px;
 
     appearance: none;
     -webkit-appearance: none;
@@ -268,10 +248,19 @@ h1 {
 }
 
 
-/* 카드 안쪽 */
+/*
+중요
+
+카드 실제 크기를
+부모 버튼과 정확히 동일하게 만든다.
+*/
 
 .card-inner {
-    position: relative;
+    position: absolute;
+
+    inset: 0;
+
+    display: block;
 
     width: 100%;
     height: 100%;
@@ -282,15 +271,13 @@ h1 {
         transform .45s
         cubic-bezier(.4,.2,.2,1);
 
-    /*
-    클릭 이벤트는
-    부모 .card만 받음
-    */
     pointer-events: none;
 }
 
 
-/* 카드 뒤집기 */
+/* ========================================
+   카드 뒤집기
+======================================== */
 
 .card.flipped .card-inner,
 .card.matched .card-inner {
@@ -298,22 +285,26 @@ h1 {
 }
 
 
-/* 카드 앞/뒤 */
+/* ========================================
+   카드 앞/뒤 공통
+======================================== */
 
 .card-face {
     position: absolute;
 
     inset: 0;
 
+    display: flex;
+
     width: 100%;
     height: 100%;
-
-    display: flex;
 
     justify-content: center;
     align-items: center;
 
     border-radius: 17px;
+
+    overflow: hidden;
 
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -322,9 +313,9 @@ h1 {
 }
 
 
-/* =========================
+/* ========================================
    카드 뒷면
-========================= */
+======================================== */
 
 .card-back {
     background:
@@ -334,11 +325,11 @@ h1 {
             #14b8a6
         );
 
+    border: 2px solid #5eead4;
+
     box-shadow:
         0 6px 16px
-        rgba(16,185,129,.16);
-
-    color: white;
+        rgba(16,185,129,.18);
 }
 
 .card-back::after {
@@ -354,77 +345,76 @@ h1 {
 
     border:
         2px solid
-        rgba(255,255,255,.5);
+        rgba(255,255,255,.55);
 
     border-radius: 50%;
 
+    color: white;
+
     font-size: 22px;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 
-/* =========================
+/* ========================================
    카드 앞면
-========================= */
+======================================== */
 
 .card-front {
-    background: white;
+    background: #fff;
 
-    border:
-        2px solid #d1fae5;
+    border: 2px solid #a7f3d0;
 
-    transform:
-        rotateY(180deg);
-
-    font-size:
-        clamp(30px, 7vw, 48px);
+    transform: rotateY(180deg);
 
     box-shadow:
         0 6px 18px
         rgba(0,0,0,.07);
+
+    font-size:
+        clamp(30px, 7vw, 48px);
 }
 
 
-/* =========================
+/* ========================================
    맞춘 카드
-========================= */
+======================================== */
 
 .card.matched .card-front {
     background: #ecfdf5;
+    border-color: #34d399;
+}
 
-    border-color: #6ee7b7;
 
+/* ========================================
+   카드 맞췄을 때 효과
+======================================== */
+
+.card.just-matched {
     animation:
         matchPop .45s ease;
 }
 
-
 @keyframes matchPop {
 
     0% {
-        transform:
-            rotateY(180deg)
-            scale(.85);
+        transform: scale(1);
     }
 
-    60% {
-        transform:
-            rotateY(180deg)
-            scale(1.08);
+    50% {
+        transform: scale(1.08);
     }
 
     100% {
-        transform:
-            rotateY(180deg)
-            scale(1);
+        transform: scale(1);
     }
 
 }
 
 
-/* =========================
+/* ========================================
    다시 시작
-========================= */
+======================================== */
 
 .controls {
     margin-top: 25px;
@@ -459,9 +449,9 @@ h1 {
 }
 
 
-/* =========================
+/* ========================================
    완료 화면
-========================= */
+======================================== */
 
 .complete {
     display: none;
@@ -529,6 +519,7 @@ h1 {
 
 .complete-buttons {
     display: grid;
+
     gap: 10px;
 }
 
@@ -566,22 +557,20 @@ h1 {
 .complete-home-btn {
     background: #f8fafc;
 
-    border:
-        2px solid #e2e8f0;
+    border: 2px solid #e2e8f0;
 
     color: #475569;
 }
 
 
-/* =========================
+/* ========================================
    색종이
-========================= */
+======================================== */
 
 #confettiCanvas {
     position: fixed;
 
-    left: 0;
-    top: 0;
+    inset: 0;
 
     width: 100%;
     height: 100%;
@@ -592,11 +581,11 @@ h1 {
 }
 
 
-/* =========================
+/* ========================================
    모바일
-========================= */
+======================================== */
 
-@media(max-width: 600px) {
+@media(max-width:600px) {
 
     body {
         padding: 25px 14px;
@@ -645,18 +634,15 @@ h1 {
 <body>
 
 
-<!-- 축하 효과 -->
-
 <canvas id="confettiCanvas"></canvas>
-
 
 
 <main class="wrap">
 
 
-    <!-- =========================
+    <!-- ====================================
          메인으로
-    ========================== -->
+    ===================================== -->
 
     <a
         href="../"
@@ -667,36 +653,32 @@ h1 {
 
 
 
-    <!-- =========================
+    <!-- ====================================
          제목
-    ========================== -->
+    ===================================== -->
 
     <header class="header">
-
 
         <div class="main-icon">
             🃏
         </div>
 
-
         <h1>
             기억력 게임
         </h1>
-
 
         <p>
             같은 그림의 카드 두 장을 찾아보세요.<br>
             카드의 위치를 얼마나 잘 기억할 수 있을까요?
         </p>
 
-
     </header>
 
 
 
-    <!-- =========================
-         게임 화면
-    ========================== -->
+    <!-- ====================================
+         게임
+    ===================================== -->
 
     <section
         class="game-box"
@@ -779,8 +761,7 @@ h1 {
         <div
             class="cards"
             id="cards"
-        >
-        </div>
+        ></div>
 
 
 
@@ -803,9 +784,9 @@ h1 {
 
 
 
-    <!-- =========================
-         완료 화면
-    ========================== -->
+    <!-- ====================================
+         완료
+    ===================================== -->
 
     <section
         class="game-box complete"
@@ -902,12 +883,11 @@ h1 {
 
 <script>
 
-/* =====================================
-   카드 그림
-===================================== */
+/* ========================================
+   카드 이미지
+======================================== */
 
 const cardImages = [
-
     "🍎",
     "🍋",
     "🍇",
@@ -916,86 +896,63 @@ const cardImages = [
     "🥝",
     "🍑",
     "🍒"
-
 ];
 
 
-
-/* =====================================
+/* ========================================
    변수
-===================================== */
+======================================== */
 
 let firstCard = null;
-
 let secondCard = null;
 
 let lockBoard = true;
 
 let attempts = 0;
-
 let matches = 0;
-
 let seconds = 0;
 
 let timer = null;
 
+let previewTimer = null;
 
 
-/* =====================================
+/* ========================================
    요소
-===================================== */
+======================================== */
 
 const cardsEl =
-    document.getElementById(
-        "cards"
-    );
-
+    document.getElementById("cards");
 
 const messageEl =
-    document.getElementById(
-        "message"
-    );
-
+    document.getElementById("message");
 
 const attemptCountEl =
-    document.getElementById(
-        "attemptCount"
-    );
-
+    document.getElementById("attemptCount");
 
 const matchCountEl =
-    document.getElementById(
-        "matchCount"
-    );
-
+    document.getElementById("matchCount");
 
 const timeCountEl =
-    document.getElementById(
-        "timeCount"
-    );
-
+    document.getElementById("timeCount");
 
 const gameBox =
-    document.getElementById(
-        "gameBox"
-    );
-
+    document.getElementById("gameBox");
 
 const completeScreen =
-    document.getElementById(
-        "completeScreen"
-    );
+    document.getElementById("completeScreen");
 
 
-
-/* =====================================
+/* ========================================
    배열 섞기
-===================================== */
+======================================== */
 
 function shuffle(array) {
 
+    const copiedArray = [...array];
+
     for (
-        let i = array.length - 1;
+        let i = copiedArray.length - 1;
         i > 0;
         i--
     ) {
@@ -1006,61 +963,64 @@ function shuffle(array) {
                 (i + 1)
             );
 
-
         [
-            array[i],
-            array[j]
+            copiedArray[i],
+            copiedArray[j]
 
         ] = [
 
-            array[j],
-            array[i]
+            copiedArray[j],
+            copiedArray[i]
 
         ];
 
     }
 
-
-    return array;
+    return copiedArray;
 
 }
 
 
-
-/* =====================================
-   게임 만들기
-===================================== */
+/* ========================================
+   게임 생성
+======================================== */
 
 function createGame() {
 
+    /*
+    기존 타이머 제거
+    */
 
     clearInterval(timer);
+    clearTimeout(previewTimer);
 
+
+    /*
+    변수 초기화
+    */
 
     firstCard = null;
-
     secondCard = null;
 
     lockBoard = true;
 
     attempts = 0;
-
     matches = 0;
-
     seconds = 0;
 
+
+    /*
+    화면 초기화
+    */
 
     attemptCountEl.textContent =
         "0";
 
-
     matchCountEl.textContent =
-        "0 / 8";
-
+        `0 / ${cardImages.length}`;
 
     timeCountEl.textContent =
         "00:00";
-
 
     messageEl.textContent =
         "카드 위치를 기억하세요!";
@@ -1069,17 +1029,20 @@ function createGame() {
     gameBox.style.display =
         "block";
 
-
     completeScreen.style.display =
         "none";
 
+
+    /*
+    기존 카드 제거
+    */
 
     cardsEl.innerHTML =
         "";
 
 
     /*
-    카드 두 세트 생성
+    카드 두 세트 만들기
     */
 
     const deck =
@@ -1089,14 +1052,12 @@ function createGame() {
         ]);
 
 
-
     /*
-    카드 만들기
+    실제 카드 생성
     */
 
     deck.forEach(
         (image, index) => {
-
 
             const card =
                 document.createElement(
@@ -1107,6 +1068,11 @@ function createGame() {
             card.type =
                 "button";
 
+
+            /*
+            처음에는 앞면이 보이도록
+            flipped 클래스 적용
+            */
 
             card.className =
                 "card flipped";
@@ -1126,36 +1092,36 @@ function createGame() {
             );
 
 
+            /*
+            div 구조로 생성
+            */
+
             card.innerHTML = `
 
-                <span class="card-inner">
+                <div class="card-inner">
 
-                    <span
-                        class="card-face card-back"
-                    >
-                    </span>
+                    <div class="card-face card-back">
+                    </div>
 
-                    <span
-                        class="card-face card-front"
-                    >
+                    <div class="card-face card-front">
                         ${image}
-                    </span>
+                    </div>
 
-                </span>
+                </div>
 
             `;
 
 
             /*
-            클릭은 반드시
-            .card 버튼 자체에만 연결
+            클릭 이벤트는
+            카드 버튼 하나에만 적용
             */
 
             card.addEventListener(
                 "click",
-                function () {
+                () => {
 
-                    flipCard(this);
+                    flipCard(card);
 
                 }
             );
@@ -1169,75 +1135,64 @@ function createGame() {
     );
 
 
-
     /*
-    처음 2초 동안
-    카드 전체 보여주기
+    2초 동안 카드 위치 보여주기
     */
 
-    setTimeout(
-        () => {
+    previewTimer =
+        setTimeout(
+            () => {
+
+                document
+                    .querySelectorAll(
+                        ".card"
+                    )
+                    .forEach(
+                        card => {
+
+                            card.classList.remove(
+                                "flipped"
+                            );
+
+                        }
+                    );
 
 
-            document
-                .querySelectorAll(
-                    ".card"
-                )
-                .forEach(
-                    card => {
+                lockBoard =
+                    false;
 
 
-                        card.classList.remove(
-                            "flipped"
-                        );
+                messageEl.textContent =
+                    "같은 그림의 카드 두 장을 찾아보세요!";
 
 
-                    }
-                );
+                startTimer();
 
-
-            lockBoard =
-                false;
-
-
-            messageEl.textContent =
-                "같은 그림의 카드 두 장을 찾아보세요!";
-
-
-            startTimer();
-
-
-        },
-        2000
-    );
+            },
+            2000
+        );
 
 }
 
 
-
-/* =====================================
+/* ========================================
    타이머
-===================================== */
+======================================== */
 
 function startTimer() {
 
-
     clearInterval(timer);
-
 
     timer =
         setInterval(
             () => {
 
-
                 seconds++;
-
 
                 timeCountEl.textContent =
                     formatTime(
                         seconds
                     );
-
 
             },
             1000
@@ -1246,87 +1201,47 @@ function startTimer() {
 }
 
 
-
-function formatTime(
-    totalSeconds
-) {
-
+function formatTime(totalSeconds) {
 
     const minutes =
         Math.floor(
-            totalSeconds /
-            60
+            totalSeconds / 60
         );
 
-
     const secs =
-        totalSeconds %
-        60;
+        totalSeconds % 60;
 
 
     return (
-
         String(minutes)
-            .padStart(
-                2,
-                "0"
-            )
-
+            .padStart(2, "0")
         +
-
         ":"
-
         +
-
         String(secs)
-            .padStart(
-                2,
-                "0"
-            )
-
+            .padStart(2, "0")
     );
 
 }
 
 
-
-/* =====================================
+/* ========================================
    카드 클릭
-===================================== */
+======================================== */
 
 function flipCard(card) {
 
-
     /*
-    다른 카드 처리 중이면
-    클릭 차단
+    판정 중 클릭 금지
     */
 
     if (lockBoard) {
-
         return;
-
     }
 
 
     /*
-    이미 첫 번째로 선택한
-    같은 카드라면 무시
-    */
-
-    if (
-        card ===
-        firstCard
-    ) {
-
-        return;
-
-    }
-
-
-    /*
-    이미 맞춘 카드라면
-    다시 클릭되지 않음
+    이미 맞춘 카드
     */
 
     if (
@@ -1334,9 +1249,18 @@ function flipCard(card) {
             "matched"
         )
     ) {
-
         return;
+    }
 
+
+    /*
+    같은 카드 두 번 클릭 방지
+    */
+
+    if (
+        card === firstCard
+    ) {
+        return;
     }
 
 
@@ -1349,22 +1273,18 @@ function flipCard(card) {
     );
 
 
-
     /*
     첫 번째 카드
     */
 
     if (!firstCard) {
 
-
         firstCard =
             card;
-
 
         return;
 
     }
-
 
 
     /*
@@ -1376,8 +1296,8 @@ function flipCard(card) {
 
 
     /*
-    두 장이 선택되면
-    바로 추가 클릭 차단
+    판정이 끝날 때까지
+    추가 클릭 차단
     */
 
     lockBoard =
@@ -1385,7 +1305,6 @@ function flipCard(card) {
 
 
     attempts++;
-
 
     attemptCountEl.textContent =
         attempts;
@@ -1396,13 +1315,11 @@ function flipCard(card) {
 }
 
 
-
-/* =====================================
+/* ========================================
    카드 비교
-===================================== */
+======================================== */
 
 function checkMatch() {
-
 
     const isMatch =
 
@@ -1412,34 +1329,40 @@ function checkMatch() {
 
     if (isMatch) {
 
-        matchedCards();
+        handleMatch();
 
     }
 
     else {
 
-        unmatchedCards();
+        handleMismatch();
 
     }
 
 }
 
 
+/* ========================================
+   정답
+======================================== */
 
-/* =====================================
-   같은 카드
-===================================== */
+function handleMatch() {
 
-function matchedCards() {
+    const card1 =
+        firstCard;
+
+    const card2 =
+        secondCard;
 
 
-    firstCard.classList.add(
-        "matched"
+    card1.classList.add(
+        "matched",
+        "just-matched"
     );
 
-
-    secondCard.classList.add(
-        "matched"
+    card2.classList.add(
+        "matched",
+        "just-matched"
     );
 
 
@@ -1454,17 +1377,32 @@ function matchedCards() {
         "🎉 맞았어요!";
 
 
-    /*
-    선택 초기화
-    */
-
     firstCard = null;
-
     secondCard = null;
 
 
     /*
-    모두 찾았다면 완료
+    애니메이션 클래스 제거
+    */
+
+    setTimeout(
+        () => {
+
+            card1.classList.remove(
+                "just-matched"
+            );
+
+            card2.classList.remove(
+                "just-matched"
+            );
+
+        },
+        500
+    );
+
+
+    /*
+    모든 카드 완료
     */
 
     if (
@@ -1472,12 +1410,10 @@ function matchedCards() {
         cardImages.length
     ) {
 
-
         setTimeout(
             finishGame,
-            600
+            700
         );
-
 
         return;
 
@@ -1485,20 +1421,17 @@ function matchedCards() {
 
 
     /*
-    다음 카드 선택 가능
+    다음 선택 가능
     */
 
     setTimeout(
         () => {
 
-
             lockBoard =
                 false;
 
-
             messageEl.textContent =
                 "같은 그림의 카드 두 장을 찾아보세요!";
-
 
         },
         450
@@ -1507,46 +1440,37 @@ function matchedCards() {
 }
 
 
+/* ========================================
+   오답
+======================================== */
 
-/* =====================================
-   다른 카드
-===================================== */
+function handleMismatch() {
 
-function unmatchedCards() {
+    const card1 =
+        firstCard;
+
+    const card2 =
+        secondCard;
 
 
     messageEl.textContent =
         "조금 더 기억해볼까요?";
 
 
-    const card1 =
-        firstCard;
-
-
-    const card2 =
-        secondCard;
-
-
     setTimeout(
         () => {
-
 
             card1.classList.remove(
                 "flipped"
             );
-
 
             card2.classList.remove(
                 "flipped"
             );
 
 
-            firstCard =
-                null;
-
-
-            secondCard =
-                null;
+            firstCard = null;
+            secondCard = null;
 
 
             lockBoard =
@@ -1556,7 +1480,6 @@ function unmatchedCards() {
             messageEl.textContent =
                 "같은 그림의 카드 두 장을 찾아보세요!";
 
-
         },
         850
     );
@@ -1564,27 +1487,16 @@ function unmatchedCards() {
 }
 
 
-
-/* =====================================
-   게임 완료
-===================================== */
+/* ========================================
+   완료
+======================================== */
 
 function finishGame() {
 
-
     clearInterval(timer);
-
 
     lockBoard =
         true;
-
-
-    gameBox.style.display =
-        "none";
-
-
-    completeScreen.style.display =
-        "block";
 
 
     document
@@ -1605,26 +1517,28 @@ function finishGame() {
             );
 
 
-    launchConfetti(
-        220
-    );
+    gameBox.style.display =
+        "none";
+
+
+    completeScreen.style.display =
+        "block";
+
+
+    launchConfetti(220);
 
 
     window.scrollTo({
-
         top: 0,
-
         behavior: "smooth"
-
     });
 
 }
 
 
-
-/* =====================================
+/* ========================================
    다시 시작
-===================================== */
+======================================== */
 
 document
     .getElementById(
@@ -1646,10 +1560,9 @@ document
     );
 
 
-
-/* =====================================
-   색종이 효과
-===================================== */
+/* ========================================
+   색종이
+======================================== */
 
 const confettiCanvas =
     document.getElementById(
@@ -1663,16 +1576,11 @@ const ctx =
     );
 
 
-let confettiPieces =
-    [];
-
-
-let confettiAnimation =
-    null;
+let confettiPieces = [];
+let confettiAnimation = null;
 
 
 const confettiColors = [
-
     "#10b981",
     "#14b8a6",
     "#6366f1",
@@ -1681,17 +1589,14 @@ const confettiColors = [
     "#f59e0b",
     "#3b82f6",
     "#facc15"
-
 ];
 
 
-
-/* =====================================
+/* ========================================
    캔버스 크기
-===================================== */
+======================================== */
 
 function resizeCanvas() {
-
 
     const ratio =
         Math.min(
@@ -1741,24 +1646,18 @@ window.addEventListener(
 resizeCanvas();
 
 
+/* ========================================
+   색종이 발사
+======================================== */
 
-/* =====================================
-   아래에서 위로 색종이 발사
-===================================== */
-
-function launchConfetti(
-    amount = 180
-) {
-
+function launchConfetti(amount = 180) {
 
     const centerX =
-        window.innerWidth /
-        2;
+        window.innerWidth / 2;
 
 
     const startY =
-        window.innerHeight +
-        10;
+        window.innerHeight + 10;
 
 
     for (
@@ -1767,30 +1666,19 @@ function launchConfetti(
         i++
     ) {
 
-
         confettiPieces.push({
-
 
             x:
                 centerX +
-                (
-                    Math.random() -
-                    .5
-                ) *
+                (Math.random() - .5) *
                 120,
-
 
             y:
                 startY,
 
-
             vx:
-                (
-                    Math.random() -
-                    .5
-                ) *
+                (Math.random() - .5) *
                 13,
-
 
             vy:
                 -(
@@ -1799,38 +1687,29 @@ function launchConfetti(
                     16
                 ),
 
-
             gravity:
                 Math.random() *
                 .12 +
                 .28,
-
 
             rotation:
                 Math.random() *
                 Math.PI *
                 2,
 
-
             rotationSpeed:
-                (
-                    Math.random() -
-                    .5
-                ) *
+                (Math.random() - .5) *
                 .3,
-
 
             width:
                 Math.random() *
                 9 +
                 5,
 
-
             height:
                 Math.random() *
                 7 +
                 4,
-
 
             color:
                 confettiColors[
@@ -1840,16 +1719,13 @@ function launchConfetti(
                     )
                 ],
 
-
             wobble:
                 Math.random() *
                 Math.PI *
                 2,
 
-
             opacity:
                 1
-
 
         });
 
@@ -1861,25 +1737,18 @@ function launchConfetti(
 }
 
 
-
-/* =====================================
-   색종이 움직임
-===================================== */
+/* ========================================
+   색종이 애니메이션
+======================================== */
 
 function startConfetti() {
 
-
-    if (
-        confettiAnimation
-    ) {
-
+    if (confettiAnimation) {
         return;
-
     }
 
 
     function animate() {
-
 
         ctx.clearRect(
             0,
@@ -1907,17 +1776,13 @@ function startConfetti() {
         confettiPieces.forEach(
             piece => {
 
-
                 piece.wobble +=
                     .07;
 
 
                 piece.x +=
-
                     piece.vx
-
                     +
-
                     Math.sin(
                         piece.wobble
                     ) *
@@ -1928,13 +1793,6 @@ function startConfetti() {
                     piece.vy;
 
 
-                /*
-                중력 적용
-
-                위로 올라간 뒤
-                다시 아래로 떨어짐
-                */
-
                 piece.vy +=
                     piece.gravity;
 
@@ -1943,28 +1801,16 @@ function startConfetti() {
                     piece.rotationSpeed;
 
 
-                /*
-                아래쪽으로 내려오면
-                자연스럽게 사라짐
-                */
-
                 if (
-
                     piece.y >
                     window.innerHeight *
                     .82
-
                     &&
-
-                    piece.vy >
-                    0
-
+                    piece.vy > 0
                 ) {
-
 
                     piece.opacity -=
                         .025;
-
 
                 }
 
@@ -1995,20 +1841,14 @@ function startConfetti() {
 
 
                 ctx.fillRect(
-
                     -piece.width / 2,
-
                     -piece.height / 2,
-
                     piece.width,
-
                     piece.height
-
                 );
 
 
                 ctx.restore();
-
 
             }
         );
@@ -2019,17 +1859,14 @@ function startConfetti() {
             0
         ) {
 
-
             confettiAnimation =
                 requestAnimationFrame(
                     animate
                 );
 
-
         }
 
         else {
-
 
             ctx.clearRect(
                 0,
@@ -2041,7 +1878,6 @@ function startConfetti() {
 
             confettiAnimation =
                 null;
-
 
         }
 
@@ -2056,10 +1892,9 @@ function startConfetti() {
 }
 
 
-
-/* =====================================
-   게임 시작
-===================================== */
+/* ========================================
+   시작
+======================================== */
 
 createGame();
 
