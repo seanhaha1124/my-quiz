@@ -31,6 +31,11 @@ body {
     overflow-x: hidden;
 }
 
+
+/* =========================
+   퀴즈 박스
+========================= */
+
 .quiz-container {
     width: 100%;
     max-width: 650px;
@@ -38,9 +43,11 @@ body {
     border-radius: 28px;
     padding: 38px;
     box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+
     position: relative;
     z-index: 2;
 }
+
 
 .quiz-title {
     text-align: center;
@@ -48,11 +55,13 @@ body {
     font-size: 32px;
 }
 
+
 .quiz-subtitle {
     text-align: center;
     color: #64748b;
     margin-bottom: 32px;
 }
+
 
 .top-info {
     display: flex;
@@ -61,6 +70,11 @@ body {
     font-size: 14px;
     color: #64748b;
 }
+
+
+/* =========================
+   진행바
+========================= */
 
 .progress {
     width: 100%;
@@ -71,12 +85,23 @@ body {
     margin-bottom: 30px;
 }
 
+
 .progress-bar {
     height: 100%;
     width: 0;
-    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    background: linear-gradient(
+        90deg,
+        #6366f1,
+        #8b5cf6
+    );
+
     transition: width 0.35s ease;
 }
+
+
+/* =========================
+   문제
+========================= */
 
 .question-number {
     color: #6366f1;
@@ -85,6 +110,7 @@ body {
     margin-bottom: 8px;
 }
 
+
 .question {
     font-size: 24px;
     line-height: 1.5;
@@ -92,17 +118,26 @@ body {
     margin-bottom: 24px;
 }
 
+
+/* =========================
+   답변 버튼
+========================= */
+
 .answers {
     display: grid;
     gap: 12px;
 }
 
+
 .answer-btn {
     width: 100%;
     min-height: 58px;
+
     border: 2px solid #e2e8f0;
     border-radius: 15px;
+
     background: white;
+
     padding: 15px 18px;
 
     font-size: 16px;
@@ -110,8 +145,10 @@ body {
     color: #334155;
 
     cursor: pointer;
+
     transition: 0.2s;
 }
+
 
 .answer-btn:hover:not(:disabled) {
     border-color: #818cf8;
@@ -119,9 +156,11 @@ body {
     transform: translateY(-1px);
 }
 
+
 .answer-btn:disabled {
     cursor: default;
 }
+
 
 .answer-btn.correct {
     background: #ecfdf5;
@@ -130,118 +169,57 @@ body {
     font-weight: 700;
 }
 
+
 .answer-btn.wrong {
     background: #fef2f2;
     border-color: #ef4444;
     color: #991b1b;
 }
 
+
+/* =========================
+   정답 / 오답 설명
+========================= */
+
 .feedback {
     display: none;
+
     margin-top: 22px;
     padding: 18px;
+
     border-radius: 15px;
+
     line-height: 1.65;
 }
 
+
 .feedback.correct {
     display: block;
+
     background: #ecfdf5;
     color: #166534;
 }
 
+
 .feedback.wrong {
     display: block;
+
     background: #fef2f2;
     color: #991b1b;
 }
 
-.next-btn {
-    display: none;
-    width: 100%;
-    margin-top: 20px;
-    border: 0;
-    border-radius: 15px;
-    padding: 16px;
 
-    background: #4f46e5;
-    color: white;
-
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.next-btn:hover {
-    background: #4338ca;
-}
-
-.result {
-    display: none;
-    text-align: center;
-}
-
-.result-icon {
-    font-size: 70px;
-    margin-bottom: 10px;
-}
-
-.result h2 {
-    font-size: 30px;
-    margin: 10px 0;
-}
-
-.score-big {
-    font-size: 58px;
-    font-weight: 800;
-    color: #4f46e5;
-    margin: 20px 0 10px;
-}
-
-.result-message {
-    color: #64748b;
-    line-height: 1.7;
-    margin-bottom: 30px;
-}
-
-.restart-btn {
-    width: 100%;
-    border: 0;
-    border-radius: 15px;
-    padding: 16px;
-
-    background: #4f46e5;
-    color: white;
-
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-
-/* =========================
-   🎉 폭죽 효과
-========================= */
-
-#confettiCanvas {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9999;
-}
-
-
-/* 정답 글자 팝 효과 */
+/* 정답 글씨 팝 */
 
 .feedback.correct strong {
     display: inline-block;
+
     animation: correctPop 0.45s ease;
 }
 
+
 @keyframes correctPop {
+
     0% {
         transform: scale(0.7);
     }
@@ -253,54 +231,192 @@ body {
     100% {
         transform: scale(1);
     }
+
 }
 
+
+/* =========================
+   다음 버튼
+========================= */
+
+.next-btn {
+    display: none;
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    border: 0;
+    border-radius: 15px;
+
+    padding: 16px;
+
+    background: #4f46e5;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.next-btn:hover {
+    background: #4338ca;
+}
+
+
+/* =========================
+   결과 화면
+========================= */
+
+.result {
+    display: none;
+    text-align: center;
+}
+
+
+.result-icon {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+
+.result h2 {
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+
+.score-big {
+    font-size: 58px;
+    font-weight: 800;
+
+    color: #4f46e5;
+
+    margin: 20px 0 10px;
+}
+
+
+.result-message {
+    color: #64748b;
+
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+}
+
+
+.restart-btn {
+    width: 100%;
+
+    border: 0;
+    border-radius: 15px;
+
+    padding: 16px;
+
+    background: #4f46e5;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   🎊 색종이 캔버스
+========================= */
+
+#confettiCanvas {
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    z-index: 9999;
+
+}
+
+
+/* =========================
+   모바일
+========================= */
 
 @media (max-width: 600px) {
 
     body {
         padding: 15px;
+
         align-items: flex-start;
+
         padding-top: 40px;
     }
 
+
     .quiz-container {
         padding: 25px 20px;
+
         border-radius: 22px;
     }
+
 
     .quiz-title {
         font-size: 27px;
     }
 
+
     .question {
         font-size: 20px;
     }
 
+
     .answer-btn {
         font-size: 15px;
     }
+
 }
 
 </style>
 </head>
 
 
+
 <body>
 
-<!-- 🎉 폭죽이 그려질 투명 캔버스 -->
+
+<!-- 🎊 폭죽 효과 -->
+
 <canvas id="confettiCanvas"></canvas>
+
 
 
 <div class="quiz-container">
 
+
+    <!-- =====================
+         퀴즈 화면
+    ====================== -->
+
     <div id="quizScreen">
 
-        <h1 class="quiz-title">🧠 상식 퀴즈</h1>
+
+        <h1 class="quiz-title">
+            🧠 상식 퀴즈
+        </h1>
+
 
         <p class="quiz-subtitle">
             나는 과연 몇 문제를 맞힐 수 있을까요?
         </p>
+
 
 
         <div class="top-info">
@@ -309,20 +425,27 @@ body {
                 1 / 5
             </span>
 
+
             <span>
                 점수
-                <strong id="score">0</strong>
+                <strong id="score">
+                    0
+                </strong>
             </span>
 
         </div>
 
 
+
         <div class="progress">
+
             <div
                 class="progress-bar"
                 id="progressBar">
             </div>
+
         </div>
+
 
 
         <div
@@ -331,10 +454,12 @@ body {
         </div>
 
 
+
         <div
             class="question"
             id="question">
         </div>
+
 
 
         <div
@@ -343,10 +468,12 @@ body {
         </div>
 
 
+
         <div
             class="feedback"
             id="feedback">
         </div>
+
 
 
         <button
@@ -357,13 +484,19 @@ body {
 
         </button>
 
+
     </div>
 
 
 
+    <!-- =====================
+         결과 화면
+    ====================== -->
+
     <div
         class="result"
         id="resultScreen">
+
 
         <div
             class="result-icon"
@@ -399,7 +532,9 @@ body {
 
         </button>
 
+
     </div>
+
 
 </div>
 
@@ -408,13 +543,14 @@ body {
 <script>
 
 
-/* =========================
-   퀴즈 데이터
-========================= */
+/* ========================================
+   퀴즈 문제
+======================================== */
 
 const quizData = [
 
     {
+
         question:
             "대한민국의 수도는 어디일까요?",
 
@@ -429,10 +565,12 @@ const quizData = [
 
         explanation:
             "대한민국의 수도는 서울입니다. 서울은 대한민국의 정치·경제·문화 중심지입니다."
+
     },
 
 
     {
+
         question:
             "세계에서 가장 큰 대양은 무엇일까요?",
 
@@ -447,10 +585,12 @@ const quizData = [
 
         explanation:
             "태평양은 지구에서 가장 넓고 깊은 대양입니다."
+
     },
 
 
     {
+
         question:
             "식물이 햇빛을 이용해 양분을 만드는 과정을 무엇이라고 할까요?",
 
@@ -465,10 +605,12 @@ const quizData = [
 
         explanation:
             "식물은 햇빛 에너지를 이용하는 광합성을 통해 유기물을 만듭니다."
+
     },
 
 
     {
+
         question:
             "훈민정음 창제를 주도한 조선의 왕은 누구일까요?",
 
@@ -483,10 +625,12 @@ const quizData = [
 
         explanation:
             "세종대왕은 백성이 쉽게 글을 익힐 수 있도록 훈민정음 창제를 주도했습니다."
+
     },
 
 
     {
+
         question:
             "지구가 태양을 한 바퀴 도는 데 걸리는 시간은 약 얼마일까요?",
 
@@ -501,97 +645,148 @@ const quizData = [
 
         explanation:
             "지구의 공전 주기는 약 365.24일입니다. 이를 기준으로 1년을 정합니다."
+
     }
 
 ];
 
 
 
+/* ========================================
+   기본 변수
+======================================== */
+
 let currentQuestion = 0;
+
 let score = 0;
+
 let answered = false;
 
 
 
 const questionEl =
-    document.getElementById("question");
+    document.getElementById(
+        "question"
+    );
+
 
 const questionNumberEl =
-    document.getElementById("questionNumber");
+    document.getElementById(
+        "questionNumber"
+    );
+
 
 const answersEl =
-    document.getElementById("answers");
+    document.getElementById(
+        "answers"
+    );
+
 
 const feedbackEl =
-    document.getElementById("feedback");
+    document.getElementById(
+        "feedback"
+    );
+
 
 const nextBtn =
-    document.getElementById("nextBtn");
+    document.getElementById(
+        "nextBtn"
+    );
+
 
 const scoreEl =
-    document.getElementById("score");
+    document.getElementById(
+        "score"
+    );
+
 
 const progressText =
-    document.getElementById("progressText");
+    document.getElementById(
+        "progressText"
+    );
+
 
 const progressBar =
-    document.getElementById("progressBar");
+    document.getElementById(
+        "progressBar"
+    );
+
 
 const quizScreen =
-    document.getElementById("quizScreen");
+    document.getElementById(
+        "quizScreen"
+    );
+
 
 const resultScreen =
-    document.getElementById("resultScreen");
+    document.getElementById(
+        "resultScreen"
+    );
 
 
 
-/* =========================
+/* ========================================
    문제 불러오기
-========================= */
+======================================== */
 
 function loadQuestion() {
 
+
     answered = false;
+
 
     const data =
         quizData[currentQuestion];
+
 
 
     questionNumberEl.textContent =
         `QUESTION ${currentQuestion + 1}`;
 
 
+
     questionEl.textContent =
         data.question;
+
 
 
     progressText.textContent =
         `${currentQuestion + 1} / ${quizData.length}`;
 
 
+
     progressBar.style.width =
         `${((currentQuestion + 1) / quizData.length) * 100}%`;
 
 
-    answersEl.innerHTML = "";
+
+    answersEl.innerHTML =
+        "";
+
 
 
     feedbackEl.style.display =
         "none";
 
+
     feedbackEl.className =
         "feedback";
+
 
 
     nextBtn.style.display =
         "none";
 
 
+
     data.answers.forEach(
         (answer, index) => {
 
+
             const button =
-                document.createElement("button");
+                document.createElement(
+                    "button"
+                );
 
 
             button.className =
@@ -600,6 +795,7 @@ function loadQuestion() {
 
             button.textContent =
                 `${index + 1}. ${answer}`;
+
 
 
             button.addEventListener(
@@ -612,9 +808,11 @@ function loadQuestion() {
             );
 
 
+
             answersEl.appendChild(
                 button
             );
+
 
         }
     );
@@ -623,28 +821,33 @@ function loadQuestion() {
 
 
 
-/* =========================
+/* ========================================
    답 선택
-========================= */
+======================================== */
 
 function selectAnswer(
     index,
     selectedButton
 ) {
 
+
     if (answered) return;
 
+
     answered = true;
+
 
 
     const data =
         quizData[currentQuestion];
 
 
+
     const buttons =
         document.querySelectorAll(
             ".answer-btn"
         );
+
 
 
     buttons.forEach(
@@ -654,56 +857,82 @@ function selectAnswer(
 
 
 
-    /* 정답 */
+    /* ==============================
+       정답
+    ============================== */
 
-    if (index === data.correct) {
+    if (
+        index ===
+        data.correct
+    ) {
+
 
         score++;
+
 
         scoreEl.textContent =
             score;
 
 
-        selectedButton.classList.add(
-            "correct"
-        );
+
+        selectedButton
+            .classList
+            .add(
+                "correct"
+            );
+
 
 
         feedbackEl.className =
             "feedback correct";
 
 
+
         feedbackEl.innerHTML =
             `<strong>🎉 정답입니다!</strong><br>${data.explanation}`;
 
 
-        /* 🎉 정답 폭죽 실행 */
-        launchConfetti();
+
+        /* 🎊 사선 폭죽 */
+
+        launchDiagonalConfetti();
+
 
     }
 
 
-    /* 오답 */
+
+    /* ==============================
+       오답
+    ============================== */
 
     else {
 
-        selectedButton.classList.add(
-            "wrong"
+
+        selectedButton
+            .classList
+            .add(
+                "wrong"
+            );
+
+
+
+        buttons[
+            data.correct
+        ].classList.add(
+            "correct"
         );
 
-
-        buttons[data.correct]
-            .classList.add(
-                "correct"
-            );
 
 
         feedbackEl.className =
             "feedback wrong";
 
 
+
         feedbackEl.innerHTML =
             `<strong>아쉽네요!</strong><br>${data.explanation}`;
+
 
     }
 
@@ -711,6 +940,7 @@ function selectAnswer(
 
     feedbackEl.style.display =
         "block";
+
 
 
     nextBtn.style.display =
@@ -723,15 +953,20 @@ function selectAnswer(
         quizData.length - 1
     ) {
 
+
         nextBtn.textContent =
             "결과 보기 →";
 
+
     }
+
 
     else {
 
+
         nextBtn.textContent =
             "다음 문제 →";
+
 
     }
 
@@ -739,15 +974,17 @@ function selectAnswer(
 
 
 
-/* =========================
+/* ========================================
    다음 문제
-========================= */
+======================================== */
 
 nextBtn.addEventListener(
     "click",
     () => {
 
+
         currentQuestion++;
+
 
 
         if (
@@ -755,26 +992,33 @@ nextBtn.addEventListener(
             quizData.length
         ) {
 
+
             loadQuestion();
 
+
         }
+
 
         else {
 
+
             showResult();
 
+
         }
+
 
     }
 );
 
 
 
-/* =========================
+/* ========================================
    결과
-========================= */
+======================================== */
 
 function showResult() {
+
 
     quizScreen.style.display =
         "none";
@@ -784,11 +1028,16 @@ function showResult() {
         "block";
 
 
+
     const percentage =
         Math.round(
-            (score / quizData.length)
+            (
+                score /
+                quizData.length
+            )
             * 100
         );
+
 
 
     document.getElementById(
@@ -797,10 +1046,12 @@ function showResult() {
         `${percentage}점`;
 
 
+
     const icon =
         document.getElementById(
             "resultIcon"
         );
+
 
 
     const message =
@@ -810,7 +1061,10 @@ function showResult() {
 
 
 
-    if (percentage === 100) {
+    if (
+        percentage === 100
+    ) {
+
 
         icon.textContent =
             "🏆";
@@ -821,16 +1075,28 @@ function showResult() {
             대단해요. 당신은 상식 퀴즈왕입니다!`;
 
 
-        /* 만점이면 한 번 더 크게! */
+
+        /*
+           만점이면 사선 폭죽을
+           조금 더 많이 터뜨림
+        */
+
         setTimeout(
-            launchBigConfetti,
+            () =>
+                launchDiagonalConfetti(
+                    260
+                ),
             200
         );
+
 
     }
 
 
-    else if (percentage >= 80) {
+    else if (
+        percentage >= 80
+    ) {
+
 
         icon.textContent =
             "🎉";
@@ -840,10 +1106,14 @@ function showResult() {
             `아주 훌륭해요!<br>
             ${quizData.length}문제 중 ${score}문제를 맞혔습니다.`;
 
+
     }
 
 
-    else if (percentage >= 60) {
+    else if (
+        percentage >= 60
+    ) {
+
 
         icon.textContent =
             "👏";
@@ -853,10 +1123,12 @@ function showResult() {
             `좋아요! 조금만 더 도전해볼까요?<br>
             ${quizData.length}문제 중 ${score}문제를 맞혔습니다.`;
 
+
     }
 
 
     else {
+
 
         icon.textContent =
             "💪";
@@ -866,15 +1138,16 @@ function showResult() {
             `괜찮아요! 다시 도전하면 더 잘할 수 있어요.<br>
             ${quizData.length}문제 중 ${score}문제를 맞혔습니다.`;
 
+
     }
 
 }
 
 
 
-/* =========================
-   다시 시작
-========================= */
+/* ========================================
+   다시 도전
+======================================== */
 
 document.getElementById(
     "restartBtn"
@@ -882,12 +1155,18 @@ document.getElementById(
     "click",
     () => {
 
-        currentQuestion = 0;
-        score = 0;
+
+        currentQuestion =
+            0;
+
+
+        score =
+            0;
 
 
         scoreEl.textContent =
             0;
+
 
 
         resultScreen.style.display =
@@ -898,17 +1177,18 @@ document.getElementById(
             "block";
 
 
+
         loadQuestion();
+
 
     }
 );
 
 
 
-/* =========================================
-   🎊 색종이 폭죽
-   외부 라이브러리 없이 직접 작동
-========================================= */
+/* ========================================
+   🎊 사선 색종이 폭죽
+======================================== */
 
 const confettiCanvas =
     document.getElementById(
@@ -922,11 +1202,15 @@ const ctx =
     );
 
 
+
 let confettiPieces = [];
+
 let confettiAnimation = null;
 
 
+
 const confettiColors = [
+
     "#6366f1",
     "#8b5cf6",
     "#ec4899",
@@ -934,12 +1218,20 @@ const confettiColors = [
     "#f59e0b",
     "#22c55e",
     "#06b6d4",
-    "#3b82f6"
+    "#3b82f6",
+    "#facc15",
+    "#fb7185"
+
 ];
 
 
 
+/* ========================================
+   캔버스 크기
+======================================== */
+
 function resizeConfettiCanvas() {
+
 
     const ratio =
         Math.min(
@@ -948,20 +1240,27 @@ function resizeConfettiCanvas() {
         );
 
 
+
     confettiCanvas.width =
-        window.innerWidth * ratio;
+        window.innerWidth
+        * ratio;
 
 
     confettiCanvas.height =
-        window.innerHeight * ratio;
+        window.innerHeight
+        * ratio;
+
 
 
     confettiCanvas.style.width =
-        window.innerWidth + "px";
+        window.innerWidth
+        + "px";
 
 
     confettiCanvas.style.height =
-        window.innerHeight + "px";
+        window.innerHeight
+        + "px";
+
 
 
     ctx.setTransform(
@@ -976,21 +1275,46 @@ function resizeConfettiCanvas() {
 }
 
 
+
 window.addEventListener(
     "resize",
     resizeConfettiCanvas
 );
 
 
+
 resizeConfettiCanvas();
 
 
 
-function createConfetti(
-    x,
-    y,
-    amount
+/* ========================================
+   사선 폭죽 만들기
+
+   왼쪽 위 ↘ 오른쪽 아래
+======================================== */
+
+function launchDiagonalConfetti(
+    amount = 180
 ) {
+
+
+    /*
+       시작 위치
+
+       화면 왼쪽 위쪽에서
+       색종이가 등장
+    */
+
+
+    const startX =
+        -30;
+
+
+    const startY =
+        window.innerHeight
+        * 0.12;
+
+
 
     for (
         let i = 0;
@@ -998,91 +1322,156 @@ function createConfetti(
         i++
     ) {
 
-        const angle =
-            Math.random()
-            * Math.PI
-            * 2;
+
+        /*
+           오른쪽 방향 속도
+
+           각각 조금씩 다르게 해서
+           자연스럽게 퍼지게 함
+        */
 
 
-        const speed =
+        const speedX =
             Math.random()
-            * 8 + 4;
+            * 8
+            + 9;
+
+
+
+        /*
+           처음에는 일부 색종이가
+           살짝 위로 올라가고
+
+           이후 중력으로 아래로
+           떨어지게 함
+        */
+
+
+        const speedY =
+            Math.random()
+            * 5
+            - 1;
+
 
 
         confettiPieces.push({
 
-            x: x,
-            y: y,
+
+            x:
+                startX
+                + Math.random()
+                * 60,
+
+
+            y:
+                startY
+                + Math.random()
+                * 100,
+
+
+            /* 오른쪽으로 이동 */
 
             vx:
-                Math.cos(angle)
-                * speed,
+                speedX,
+
+
+            /* 아래 방향 */
 
             vy:
-                Math.sin(angle)
-                * speed - 4,
+                speedY,
+
+
+            /* 중력 */
 
             gravity:
                 Math.random()
-                * 0.12 + 0.12,
+                * 0.055
+                + 0.055,
+
+
+            /* 공기 저항 */
+
+            drag:
+                Math.random()
+                * 0.003
+                + 0.994,
+
+
+            /* 색종이 회전 */
 
             rotation:
                 Math.random()
-                * Math.PI,
+                * Math.PI
+                * 2,
+
 
             rotationSpeed:
-                (Math.random() - 0.5)
-                * 0.3,
+                (
+                    Math.random()
+                    - 0.5
+                )
+                * 0.35,
+
+
+            /* 크기 */
 
             width:
                 Math.random()
-                * 7 + 5,
+                * 9
+                + 5,
+
 
             height:
                 Math.random()
-                * 5 + 4,
+                * 6
+                + 3,
+
+
+            /* 색상 */
 
             color:
                 confettiColors[
                     Math.floor(
                         Math.random()
-                        * confettiColors.length
+                        *
+                        confettiColors.length
                     )
                 ],
 
-            life: 1,
+
+            /* 투명도 */
+
+            life:
+                1,
+
+
+            /* 사라지는 속도 */
 
             decay:
                 Math.random()
-                * 0.006 + 0.008
+                * 0.0025
+                + 0.0025,
+
+
+            /* 좌우 흔들림 */
+
+            wobble:
+                Math.random()
+                * Math.PI
+                * 2,
+
+
+            wobbleSpeed:
+                Math.random()
+                * 0.08
+                + 0.04
+
 
         });
 
+
     }
 
-}
-
-
-
-function launchConfetti() {
-
-    /*
-       화면 왼쪽과 오른쪽에서
-       동시에 팡!
-    */
-
-    createConfetti(
-        window.innerWidth * 0.18,
-        window.innerHeight * 0.55,
-        70
-    );
-
-
-    createConfetti(
-        window.innerWidth * 0.82,
-        window.innerHeight * 0.55,
-        70
-    );
 
 
     startConfettiAnimation();
@@ -1091,43 +1480,25 @@ function launchConfetti() {
 
 
 
-function launchBigConfetti() {
-
-    createConfetti(
-        window.innerWidth * 0.15,
-        window.innerHeight * 0.45,
-        100
-    );
-
-
-    createConfetti(
-        window.innerWidth * 0.5,
-        window.innerHeight * 0.3,
-        100
-    );
-
-
-    createConfetti(
-        window.innerWidth * 0.85,
-        window.innerHeight * 0.45,
-        100
-    );
-
-
-    startConfettiAnimation();
-
-}
-
-
+/* ========================================
+   색종이 애니메이션
+======================================== */
 
 function startConfettiAnimation() {
 
-    if (confettiAnimation) {
+
+    if (
+        confettiAnimation
+    ) {
+
         return;
+
     }
 
 
+
     function animate() {
+
 
         ctx.clearRect(
             0,
@@ -1137,41 +1508,107 @@ function startConfettiAnimation() {
         );
 
 
+
         confettiPieces =
             confettiPieces.filter(
+
                 piece =>
-                    piece.life > 0
+
+                    piece.life > 0 &&
+
+                    piece.x <
+                        window.innerWidth
+                        + 150 &&
+
+                    piece.y <
+                        window.innerHeight
+                        + 150
+
             );
+
 
 
         confettiPieces.forEach(
             piece => {
 
+
+                /*
+                   좌우 살랑거리는 효과
+                */
+
+
+                piece.wobble +=
+                    piece.wobbleSpeed;
+
+
+
+                /*
+                   오른쪽으로 계속 이동
+                */
+
+
                 piece.x +=
-                    piece.vx;
+                    piece.vx
+                    +
+                    Math.sin(
+                        piece.wobble
+                    )
+                    * 0.8;
+
+
+
+                /*
+                   아래로 낙하
+                */
 
 
                 piece.y +=
                     piece.vy;
 
 
+
+                /*
+                   중력 적용
+                */
+
+
                 piece.vy +=
                     piece.gravity;
 
 
+
+                /*
+                   속도 조금씩 감소
+                */
+
+
                 piece.vx *=
-                    0.99;
+                    piece.drag;
+
+
+
+                /*
+                   회전
+                */
 
 
                 piece.rotation +=
                     piece.rotationSpeed;
 
 
+
+                /*
+                   서서히 사라짐
+                */
+
+
                 piece.life -=
                     piece.decay;
 
 
+
                 ctx.save();
+
 
 
                 ctx.globalAlpha =
@@ -1181,10 +1618,12 @@ function startConfettiAnimation() {
                     );
 
 
+
                 ctx.translate(
                     piece.x,
                     piece.y
                 );
+
 
 
                 ctx.rotate(
@@ -1192,36 +1631,55 @@ function startConfettiAnimation() {
                 );
 
 
+
                 ctx.fillStyle =
                     piece.color;
 
 
+
+                /*
+                   직사각형 색종이
+                */
+
+
                 ctx.fillRect(
+
                     -piece.width / 2,
+
                     -piece.height / 2,
+
                     piece.width,
+
                     piece.height
+
                 );
+
 
 
                 ctx.restore();
 
+
             }
         );
+
 
 
         if (
             confettiPieces.length > 0
         ) {
 
+
             confettiAnimation =
                 requestAnimationFrame(
                     animate
                 );
 
+
         }
 
+
         else {
+
 
             ctx.clearRect(
                 0,
@@ -1234,9 +1692,12 @@ function startConfettiAnimation() {
             confettiAnimation =
                 null;
 
+
         }
 
+
     }
+
 
 
     confettiAnimation =
@@ -1248,9 +1709,9 @@ function startConfettiAnimation() {
 
 
 
-/* =========================
-   시작
-========================= */
+/* ========================================
+   퀴즈 시작
+======================================== */
 
 loadQuestion();
 
