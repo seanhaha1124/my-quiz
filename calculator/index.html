@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>여행 경비 계산기</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 40px 20px;
+
+      font-family: -apple-system, BlinkMacSystemFont,
+                   "Pretendard", "Noto Sans KR", Arial, sans-serif;
+
+      background:
+        radial-gradient(circle at 10% 20%, #e1f3ff 0, transparent 30%),
+        radial-gradient(circle at 90% 80%, #e8e7ff 0, transparent 30%),
+        #f7f8fc;
+
+      color: #222;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+
+    /* =========================
+       메인으로
+    ========================= */
+
+    .home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+
+      margin-bottom: 25px;
+      padding: 9px 14px;
+
+      background: #fff;
+
+      border: 1px solid #e2e8f0;
+      border-radius: 30px;
+
+      color: #64748b;
+      text-decoration: none;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      transition: .2s;
+    }
+
+    .home-btn:hover {
+      background: #eef7ff;
+      border-color: #bae6fd;
+      color: #0284c7;
+
+      transform: translateX(-2px);
+    }
+
+
+    /* =========================
+       상단
+    ========================= */
+
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .icon {
+      width: 72px;
+      height: 72px;
+
+      margin: 0 auto 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 22px;
+
+      background: #e1f3ff;
+
+      font-size: 36px;
+    }
+
+    h1 {
+      font-size: 36px;
+      letter-spacing: -1.5px;
+      margin-bottom: 12px;
+    }
+
+    .header p {
+      color: #777;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+
+    /* =========================
+       입력 박스
+    ========================= */
+
+    .calculator-box {
+      padding: 35px;
+
+      background: rgba(255,255,255,.95);
+
+      border: 1px solid #e8e8ef;
+      border-radius: 26px;
+
+      box-shadow: 0 18px 50px rgba(0,0,0,.06);
+    }
+
+
+    /* =========================
+       기본 정보
+    ========================= */
+
+    .section-title {
+      margin-bottom: 18px;
+
+      font-size: 17px;
+      font-weight: 800;
+
+      color: #334155;
+    }
+
+    .basic-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 12px;
+
+      margin-bottom: 32px;
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: #64748b;
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+
+      height: 52px;
+
+      padding: 0 15px;
+
+      border: 2px solid #e2e8f0;
+      border-radius: 13px;
+
+      background: #fff;
+
+      color: #222;
+
+      font-family: inherit;
+      font-size: 16px;
+
+      outline: none;
+
+      transition: .2s;
+    }
+
+    input:focus {
+      border-color: #38bdf8;
+
+      box-shadow:
+        0 0 0 4px rgba(56,189,248,.10);
+    }
+
+
+    /* =========================
+       경비 입력
+    ========================= */
+
+    .expense-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+    }
+
+    .expense-item {
+      position: relative;
+    }
+
+    .expense-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 8px;
+
+      color: #475569;
+
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .expense-label span {
+      font-size: 19px;
+    }
+
+    .money-wrap {
+      position: relative;
+    }
+
+    .money-wrap input {
+      padding-right: 43px;
+      text-align: right;
+    }
+
+    .won {
+      position: absolute;
+
+      top: 50%;
+      right: 15px;
+
+      transform: translateY(-50%);
+
+      color: #94a3b8;
+      font-size: 14px;
+
+      pointer-events: none;
+    }
+
+
+    /* =========================
+       계산 버튼
+    ========================= */
+
+    .calculate-btn {
+      width: 100%;
+
+      margin-top: 28px;
+      padding: 17px;
+
+      border: 0;
+      border-radius: 15px;
+
+      background: linear-gradient(
+        135deg,
+        #0ea5e9,
+        #6366f1
+      );
+
+      color: white;
+
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      transition: .2s;
+    }
+
+    .calculate-btn:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 10px 25px rgba(14,165,233,.22);
+    }
+
+
+    /* =========================
+       결과
+    ========================= */
+
+    .result {
+      display: none;
+
+      margin-top: 25px;
+      padding: 35px;
+
+      background: #fff;
+
+      border: 1px solid #e8e8ef;
+      border-radius: 26px;
+
+      box-shadow: 0 18px 50px rgba(0,0,0,.06);
+    }
+
+    .result-header {
+      text-align: center;
+
+      padding-bottom: 28px;
+      margin-bottom: 25px;
+
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .result-destination {
+      margin-bottom: 8px;
+
+      color: #64748b;
+
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .result-info {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+
+    /* 총 금액 */
+
+    .total-label {
+      margin-top: 25px;
+      margin-bottom: 5px;
+
+      color: #64748b;
+
+      font-size: 14px;
+    }
+
+    .total-price {
+      color: #0f172a;
+
+      font-size: 42px;
+      font-weight: 900;
+
+      letter-spacing: -2px;
+    }
+
+    .per-person-box {
+      margin-top: 18px;
+      padding: 17px;
+
+      background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #f5f3ff
+      );
+
+      border-radius: 15px;
+    }
+
+    .per-person-label {
+      margin-bottom: 4px;
+
+      color: #64748b;
+
+      font-size: 13px;
+    }
+
+    .per-person-price {
+      color: #4f46e5;
+
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+
+    /* =========================
+       상세 경비
+    ========================= */
+
+    .detail-title {
+      margin-bottom: 15px;
+
+      color: #334155;
+
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 13px 3px;
+
+      border-bottom: 1px solid #f1f5f9;
+
+      color: #64748b;
+
+      font-size: 14px;
+    }
+
+    .detail-row:last-child {
+      border-bottom: 0;
+    }
+
+    .detail-price {
+      color: #334155;
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       다시 계산
+    ========================= */
+
+    .result-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+
+      margin-top: 28px;
+    }
+
+    .reset-btn,
+    .result-home-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 52px;
+
+      border-radius: 14px;
+
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      text-decoration: none;
+    }
+
+    .reset-btn {
+      border: 0;
+
+      background: #0ea5e9;
+
+      color: white;
+    }
+
+    .result-home-btn {
+      border: 2px solid #e2e8f0;
+
+      background: #f8fafc;
+
+      color: #475569;
+    }
+
+
+    /* =========================
+       모바일
+    ========================= */
+
+    @media (max-width: 650px) {
+
+      body {
+        padding: 25px 15px;
+      }
+
+      h1 {
+        font-size: 29px;
+      }
+
+      .header p {
+        font-size: 14px;
+      }
+
+      .calculator-box,
+      .result {
+        padding: 23px 19px;
+        border-radius: 21px;
+      }
+
+      .basic-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .basic-grid .destination-field {
+        grid-column: 1 / -1;
+      }
+
+      .expense-list {
+        grid-template-columns: 1fr;
+      }
+
+      .total-price {
+        font-size: 34px;
+      }
+
+      .result-buttons {
+        grid-template-columns: 1fr;
+      }
+
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <main class="wrap">
+
+
+    <!-- 메인으로 -->
+
+    <a href="../" class="home-btn">
+      ← 메인으로
+    </a>
+
+
+    <!-- 상단 -->
+
+    <header class="header">
+
+      <div class="icon">
+        🧮
+      </div>
+
+      <h1>
+        여행 경비 계산기
+      </h1>
+
+      <p>
+        여행에 필요한 경비를 입력하면<br>
+        총 여행비와 1인당 비용을 계산해드려요.
+      </p>
+
+    </header>
+
+
+
+    <!-- =========================
+         입력 화면
+    ========================== -->
+
+    <section
+      class="calculator-box"
+      id="calculatorBox"
+    >
+
+
+      <div class="section-title">
+        ✈️ 여행 정보
+      </div>
+
+
+      <div class="basic-grid">
+
+
+        <!-- 여행지 -->
+
+        <div class="field destination-field">
+
+          <label for="destination">
+            여행지
+          </label>
+
+          <input
+            type="text"
+            id="destination"
+            placeholder="예: 제주도"
+          >
+
+        </div>
+
+
+        <!-- 인원 -->
+
+        <div class="field">
+
+          <label for="people">
+            여행 인원
+          </label>
+
+          <input
+            type="number"
+            id="people"
+            value="2"
+            min="1"
+          >
+
+        </div>
+
+
+        <!-- 기간 -->
+
+        <div class="field">
+
+          <label for="days">
+            여행 기간
+          </label>
+
+          <input
+            type="number"
+            id="days"
+            value="3"
+            min="1"
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <div class="section-title">
+        💰 예상 경비
+      </div>
+
+
+      <div class="expense-list">
+
+
+        <!-- 교통비 -->
+
+        <div class="expense-item">
+
+          <div class="expense-label">
+            <span>✈️</span>
+            교통비
+          </div>
+
+          <div class="money-wrap">
+
+            <input
+              type="text"
+              class="money-input"
+              id="transport"
+              inputmode="numeric"
+              placeholder="0"
+            >
+
+            <span class="won">
+              원
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 숙박비 -->
+
+        <div class="expense-item">
+
+          <div class="expense-label">
+            <span>🏨</span>
+            숙박비
+          </div>
+
+          <div class="money-wrap">
+
+            <input
+              type="text"
+              class="money-input"
+              id="hotel"
+              inputmode="numeric"
+              placeholder="0"
+            >
+
+            <span class="won">
+              원
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 식비 -->
+
+        <div class="expense-item">
+
+          <div class="expense-label">
+            <span>🍽️</span>
+            식비
+          </div>
+
+          <div class="money-wrap">
+
+            <input
+              type="text"
+              class="money-input"
+              id="food"
+              inputmode="numeric"
+              placeholder="0"
+            >
+
+            <span class="won">
+              원
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 관광비 -->
+
+        <div class="expense-item">
+
+          <div class="expense-label">
+            <span>🎟️</span>
+            관광·입장료
+          </div>
+
+          <div class="money-wrap">
+
+            <input
+              type="text"
+              class="money-input"
+              id="activity"
+              inputmode="numeric"
+              placeholder="0"
+            >
+
+            <span class="won">
+              원
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 쇼핑비 -->
+
+        <div class="expense-item">
+
+          <div class="expense-label">
+            <span>🛍️</span>
+            쇼핑비
+          </div>
+
+          <div class="money-wrap">
+
+            <input
+              type="text"
+              class="money-input"
+              id="shopping"
+              inputmode="numeric"
+              placeholder="0"
+            >
+
+            <span class="won">
+              원
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- 기타 -->
+
+        <div class="expense-item">
+
+          <div class="expense-label">
+            <span>💵</span>
+            기타 비용
+          </div>
+
+          <div class="money-wrap">
+
+            <input
+              type="text"
+              class="money-input"
+              id="etc"
+              inputmode="numeric"
+              placeholder="0"
+            >
+
+            <span class="won">
+              원
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <button
+        type="button"
+        class="calculate-btn"
+        id="calculateBtn"
+      >
+        여행 경비 계산하기
+      </button>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         결과 화면
+    ========================== -->
+
+    <section
+      class="result"
+      id="result"
+    >
+
+
+      <div class="result-header">
+
+        <div
+          class="result-destination"
+          id="resultDestination"
+        >
+        </div>
+
+
+        <div
+          class="result-info"
+          id="resultInfo"
+        >
+        </div>
+
+
+        <div class="total-label">
+          총 여행 경비
+        </div>
+
+
+        <div
+          class="total-price"
+          id="totalPrice"
+        >
+          0원
+        </div>
+
+
+        <div class="per-person-box">
+
+          <div class="per-person-label">
+            👤 1인당 예상 경비
+          </div>
+
+          <div
+            class="per-person-price"
+            id="perPersonPrice"
+          >
+            0원
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="detail-title">
+        경비 상세
+      </div>
+
+
+      <div id="detailList">
+      </div>
+
+
+
+      <div class="result-buttons">
+
+        <button
+          type="button"
+          class="reset-btn"
+          id="resetBtn"
+        >
+          ✏️ 금액 수정하기
+        </button>
+
+
+        <a
+          href="../"
+          class="result-home-btn"
+        >
+          🏠 메인으로 가기
+        </a>
+
+      </div>
+
+
+    </section>
+
+
+  </main>
+
+
+
+<script>
+
+/* ===============================
+   금액 입력 쉼표
+================================ */
+
+const moneyInputs =
+  document.querySelectorAll(
+    ".money-input"
+  );
+
+
+moneyInputs.forEach(input => {
+
+  input.addEventListener(
+    "input",
+    function () {
+
+      let value =
+        this.value.replace(
+          /[^0-9]/g,
+          ""
+        );
+
+
+      if (value === "") {
+
+        this.value = "";
+        return;
+
+      }
+
+
+      this.value =
+        Number(value)
+          .toLocaleString("ko-KR");
+
+    }
+  );
+
+});
+
+
+
+/* ===============================
+   입력 금액 숫자로 변환
+================================ */
+
+function getMoney(id) {
+
+  const value =
+    document
+      .getElementById(id)
+      .value
+      .replace(/,/g, "");
+
+
+  return Number(value) || 0;
+
+}
+
+
+
+/* ===============================
+   원화 표시
+================================ */
+
+function formatWon(number) {
+
+  return Math.round(number)
+    .toLocaleString("ko-KR") + "원";
+
+}
+
+
+
+/* ===============================
+   계산하기
+================================ */
+
+document
+  .getElementById("calculateBtn")
+  .addEventListener(
+    "click",
+    calculateTravel
+  );
+
+
+function calculateTravel() {
+
+
+  /* 여행 정보 */
+
+  let destination =
+    document
+      .getElementById("destination")
+      .value
+      .trim();
+
+
+  let people =
+    Number(
+      document
+        .getElementById("people")
+        .value
+    );
+
+
+  let days =
+    Number(
+      document
+        .getElementById("days")
+        .value
+    );
+
+
+  /* 기본값 */
+
+  if (destination === "") {
+    destination = "나의 여행";
+  }
+
+
+  if (
+    !people ||
+    people < 1
+  ) {
+
+    alert(
+      "여행 인원을 1명 이상 입력해주세요."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    !days ||
+    days < 1
+  ) {
+
+    alert(
+      "여행 기간을 1일 이상 입력해주세요."
+    );
+
+    return;
+
+  }
+
+
+
+  /* 비용 */
+
+  const expenses = [
+
+    {
+      icon: "✈️",
+      name: "교통비",
+      price: getMoney("transport")
+    },
+
+    {
+      icon: "🏨",
+      name: "숙박비",
+      price: getMoney("hotel")
+    },
+
+    {
+      icon: "🍽️",
+      name: "식비",
+      price: getMoney("food")
+    },
+
+    {
+      icon: "🎟️",
+      name: "관광·입장료",
+      price: getMoney("activity")
+    },
+
+    {
+      icon: "🛍️",
+      name: "쇼핑비",
+      price: getMoney("shopping")
+    },
+
+    {
+      icon: "💵",
+      name: "기타 비용",
+      price: getMoney("etc")
+    }
+
+  ];
+
+
+
+  /* 총액 */
+
+  const total =
+    expenses.reduce(
+      (sum, item) =>
+        sum + item.price,
+      0
+    );
+
+
+  const perPerson =
+    total / people;
+
+
+
+  /* 결과 */
+
+  document
+    .getElementById(
+      "resultDestination"
+    )
+    .textContent =
+      `✈️ ${destination} 여행`;
+
+
+  document
+    .getElementById(
+      "resultInfo"
+    )
+    .textContent =
+      `${days}일 · ${people}명`;
+
+
+  document
+    .getElementById(
+      "totalPrice"
+    )
+    .textContent =
+      formatWon(total);
+
+
+  document
+    .getElementById(
+      "perPersonPrice"
+    )
+    .textContent =
+      formatWon(perPerson);
+
+
+
+  /* 상세 내역 */
+
+  const detailList =
+    document.getElementById(
+      "detailList"
+    );
+
+
+  detailList.innerHTML = "";
+
+
+  expenses.forEach(item => {
+
+    const row =
+      document.createElement("div");
+
+
+    row.className =
+      "detail-row";
+
+
+    row.innerHTML = `
+      <span>
+        ${item.icon}
+        ${item.name}
+      </span>
+
+      <span class="detail-price">
+        ${formatWon(item.price)}
+      </span>
+    `;
+
+
+    detailList.appendChild(row);
+
+  });
+
+
+
+  /* 입력 화면 숨기기 */
+
+  document
+    .getElementById(
+      "calculatorBox"
+    )
+    .style.display =
+      "none";
+
+
+  /* 결과 보이기 */
+
+  const result =
+    document.getElementById(
+      "result"
+    );
+
+
+  result.style.display =
+    "block";
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+
+/* ===============================
+   금액 수정하기
+================================ */
+
+document
+  .getElementById("resetBtn")
+  .addEventListener(
+    "click",
+    function () {
+
+      document
+        .getElementById(
+          "result"
+        )
+        .style.display =
+          "none";
+
+
+      document
+        .getElementById(
+          "calculatorBox"
+        )
+        .style.display =
+          "block";
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
