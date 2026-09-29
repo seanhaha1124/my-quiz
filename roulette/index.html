@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>랜덤 룰렛</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    padding: 35px 20px;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(circle at 10% 20%, #fff4cf 0, transparent 30%),
+        radial-gradient(circle at 90% 80%, #e8e7ff 0, transparent 30%),
+        #f7f8fc;
+
+    color: #222;
+}
+
+
+/* =========================
+   전체
+========================= */
+
+.wrap {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+
+/* =========================
+   메인으로
+========================= */
+
+.home-btn {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 25px;
+    padding: 9px 14px;
+
+    background: #fff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 30px;
+
+    color: #64748b;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: .2s;
+}
+
+.home-btn:hover {
+    background: #fffbeb;
+    border-color: #fde68a;
+    color: #d97706;
+
+    transform: translateX(-2px);
+}
+
+
+/* =========================
+   제목
+========================= */
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main-icon {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 22px;
+
+    background: #fff4cf;
+
+    font-size: 36px;
+}
+
+h1 {
+    margin-bottom: 10px;
+
+    font-size: 36px;
+    letter-spacing: -1.5px;
+}
+
+.header p {
+    color: #777;
+
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   게임 전체 박스
+========================= */
+
+.game-box {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(270px, .85fr);
+
+    gap: 30px;
+
+    padding: 32px;
+
+    background: rgba(255,255,255,.95);
+
+    border: 1px solid #e8e8ef;
+    border-radius: 26px;
+
+    box-shadow:
+        0 18px 50px
+        rgba(0,0,0,.06);
+}
+
+
+/* =========================
+   룰렛
+========================= */
+
+.roulette-area {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+}
+
+.wheel-wrap {
+    position: relative;
+
+    width: min(100%, 420px);
+
+    aspect-ratio: 1 / 1;
+
+    margin: 15px auto 25px;
+}
+
+
+/* 화살표 */
+
+.pointer {
+    position: absolute;
+
+    z-index: 5;
+
+    left: 50%;
+    top: -10px;
+
+    transform: translateX(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-left: 17px solid transparent;
+    border-right: 17px solid transparent;
+    border-top: 34px solid #ef4444;
+
+    filter:
+        drop-shadow(
+            0 3px 2px
+            rgba(0,0,0,.15)
+        );
+}
+
+
+/* 캔버스 */
+
+#wheelCanvas {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    filter:
+        drop-shadow(
+            0 12px 20px
+            rgba(0,0,0,.10)
+        );
+}
+
+
+/* 가운데 버튼 */
+
+.spin-btn {
+    position: absolute;
+
+    z-index: 4;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 92px;
+    height: 92px;
+
+    border: 7px solid white;
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f59e0b,
+            #f97316
+        );
+
+    box-shadow:
+        0 6px 18px
+        rgba(0,0,0,.20);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.spin-btn:hover:not(:disabled) {
+    transform:
+        translate(-50%, -50%)
+        scale(1.07);
+}
+
+.spin-btn:disabled {
+    cursor: default;
+}
+
+
+/* 안내 */
+
+.wheel-message {
+    min-height: 25px;
+
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   입력 영역
+========================= */
+
+.setting-area {
+    padding: 5px 0;
+}
+
+.setting-title {
+    margin-bottom: 8px;
+
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.setting-description {
+    margin-bottom: 20px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* 입력 */
+
+.input-row {
+    display: flex;
+    gap: 8px;
+
+    margin-bottom: 15px;
+}
+
+.item-input {
+    min-width: 0;
+    flex: 1;
+
+    height: 48px;
+
+    padding: 0 14px;
+
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 16px;
+
+    transition: .2s;
+}
+
+.item-input:focus {
+    border-color: #fbbf24;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(251,191,36,.12);
+}
+
+.add-btn {
+    flex-shrink: 0;
+
+    width: 68px;
+
+    border: 0;
+    border-radius: 12px;
+
+    background: #f59e0b;
+
+    color: white;
+
+    font-family: inherit;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background: #d97706;
+}
+
+
+/* =========================
+   항목 리스트
+========================= */
+
+.item-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    max-height: 330px;
+
+    overflow-y: auto;
+
+    padding-right: 3px;
+}
+
+.item {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 10px;
+
+    min-height: 46px;
+
+    padding: 8px 9px 8px 14px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef2f7;
+    border-radius: 11px;
+}
+
+.item-name {
+    min-width: 0;
+
+    color: #475569;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.delete-btn {
+    flex-shrink: 0;
+
+    width: 32px;
+    height: 32px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #94a3b8;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.delete-btn:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+
+/* =========================
+   초기화
+========================= */
+
+.reset-items-btn {
+    width: 100%;
+
+    margin-top: 15px;
+    padding: 12px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 11px;
+
+    background: white;
+
+    color: #64748b;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.reset-items-btn:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================
+   결과 팝업
+========================= */
+
+.result-overlay {
+    position: fixed;
+
+    z-index: 1000;
+
+    inset: 0;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background:
+        rgba(15,23,42,.48);
+
+    backdrop-filter: blur(4px);
+}
+
+.result-popup {
+    width: min(420px, 100%);
+
+    padding: 38px 25px 28px;
+
+    background: white;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.20);
+
+    animation:
+        resultPop .4s ease;
+}
+
+@keyframes resultPop {
+
+    0% {
+        transform: scale(.75);
+        opacity: 0;
+    }
+
+    65% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+}
+
+.result-icon {
+    margin-bottom: 10px;
+
+    font-size: 58px;
+}
+
+.result-small {
+    color: #94a3b8;
+
+    font-size: 14px;
+}
+
+.result-name {
+    margin: 12px 0 25px;
+
+    color: #d97706;
+
+    font-size: 34px;
+    font-weight: 900;
+
+    word-break: keep-all;
+}
+
+.popup-buttons {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 9px;
+}
+
+.again-btn,
+.close-btn {
+    min-height: 50px;
+
+    border-radius: 13px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.again-btn {
+    border: 0;
+
+    background: #f59e0b;
+
+    color: white;
+}
+
+.close-btn {
+    border: 2px solid #e2e8f0;
+
+    background: #f8fafc;
+
+    color: #475569;
+}
+
+
+/* =========================
+   모바일
+========================= */
+
+@media (max-width: 750px) {
+
+    body {
+        padding: 25px 14px;
+    }
+
+    h1 {
+        font-size: 29px;
+    }
+
+    .game-box {
+        grid-template-columns: 1fr;
+
+        padding: 22px 17px;
+
+        border-radius: 21px;
+    }
+
+    .wheel-wrap {
+        width: min(100%, 360px);
+    }
+
+    .spin-btn {
+        width: 80px;
+        height: 80px;
+
+        font-size: 16px;
+    }
+
+    .setting-area {
+        padding-top: 10px;
+    }
+
+}
+
+@media (max-width: 400px) {
+
+    .wheel-wrap {
+        width: 100%;
+    }
+
+    .spin-btn {
+        width: 72px;
+        height: 72px;
+
+        border-width: 6px;
+
+        font-size: 14px;
+    }
+
+    .popup-buttons {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<main class="wrap">
+
+
+    <!-- 메인으로 -->
+
+    <a
+        href="../"
+        class="home-btn"
+    >
+        ← 메인으로
+    </a>
+
+
+
+    <!-- 제목 -->
+
+    <header class="header">
+
+        <div class="main-icon">
+            🎯
+        </div>
+
+        <h1>
+            랜덤 룰렛
+        </h1>
+
+        <p>
+            고민될 때는 룰렛에게 맡겨보세요.<br>
+            원하는 항목을 직접 추가하고 룰렛을 돌려보세요!
+        </p>
+
+    </header>
+
+
+
+    <!-- 룰렛 -->
+
+    <section class="game-box">
+
+
+        <div class="roulette-area">
+
+
+            <div class="wheel-wrap">
+
+
+                <div class="pointer"></div>
+
+
+                <canvas
+                    id="wheelCanvas"
+                    width="700"
+                    height="700"
+                ></canvas>
+
+
+                <button
+                    type="button"
+                    class="spin-btn"
+                    id="spinBtn"
+                >
+                    START
+                </button>
+
+
+            </div>
+
+
+            <div
+                class="wheel-message"
+                id="wheelMessage"
+            >
+                가운데 START 버튼을 눌러보세요!
+            </div>
+
+
+        </div>
+
+
+
+        <!-- 항목 설정 -->
+
+        <div class="setting-area">
+
+
+            <div class="setting-title">
+                🎲 룰렛 항목
+            </div>
+
+
+            <div class="setting-description">
+                원하는 항목을 직접 추가하거나 삭제할 수 있어요.
+                최소 2개 이상의 항목이 필요합니다.
+            </div>
+
+
+
+            <div class="input-row">
+
+
+                <input
+                    type="text"
+                    class="item-input"
+                    id="itemInput"
+                    placeholder="항목 입력"
+                    maxlength="15"
+                >
+
+
+                <button
+                    type="button"
+                    class="add-btn"
+                    id="addBtn"
+                >
+                    추가
+                </button>
+
+
+            </div>
+
+
+
+            <div
+                class="item-list"
+                id="itemList"
+            >
+            </div>
+
+
+
+            <button
+                type="button"
+                class="reset-items-btn"
+                id="resetItemsBtn"
+            >
+                기본 항목으로 초기화
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================
+     결과 팝업
+========================= -->
+
+<div
+    class="result-overlay"
+    id="resultOverlay"
+>
+
+
+    <div class="result-popup">
+
+
+        <div class="result-icon">
+            🎉
+        </div>
+
+
+        <div class="result-small">
+            룰렛 결과는
+        </div>
+
+
+        <div
+            class="result-name"
+            id="resultName"
+        >
+        </div>
+
+
+        <div class="popup-buttons">
+
+
+            <button
+                type="button"
+                class="again-btn"
+                id="againBtn"
+            >
+                🎯 다시 돌리기
+            </button>
+
+
+            <button
+                type="button"
+                class="close-btn"
+                id="closeBtn"
+            >
+                닫기
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+/* ================================
+   기본 항목
+================================ */
+
+const defaultItems = [
+    "치킨",
+    "피자",
+    "떡볶이",
+    "햄버거",
+    "초밥",
+    "파스타"
+];
+
+
+let items = [
+    ...defaultItems
+];
+
+
+let currentRotation = 0;
+
+let spinning = false;
+
+
+
+/* ================================
+   요소
+================================ */
+
+const canvas =
+    document.getElementById(
+        "wheelCanvas"
+    );
+
+
+const ctx =
+    canvas.getContext(
+        "2d"
+    );
+
+
+const spinBtn =
+    document.getElementById(
+        "spinBtn"
+    );
+
+
+const itemInput =
+    document.getElementById(
+        "itemInput"
+    );
+
+
+const itemList =
+    document.getElementById(
+        "itemList"
+    );
+
+
+const addBtn =
+    document.getElementById(
+        "addBtn"
+    );
+
+
+const wheelMessage =
+    document.getElementById(
+        "wheelMessage"
+    );
+
+
+const resultOverlay =
+    document.getElementById(
+        "resultOverlay"
+    );
+
+
+const resultName =
+    document.getElementById(
+        "resultName"
+    );
+
+
+
+/* ================================
+   색상
+================================ */
+
+const colors = [
+
+    "#fde68a",
+    "#bfdbfe",
+    "#fecdd3",
+    "#bbf7d0",
+    "#ddd6fe",
+    "#fed7aa",
+    "#a5f3fc",
+    "#fbcfe8",
+    "#d9f99d",
+    "#c7d2fe",
+    "#fef08a",
+    "#bae6fd"
+
+];
+
+
+
+/* ================================
+   룰렛 그리기
+================================ */
+
+function drawWheel() {
+
+
+    const width =
+        canvas.width;
+
+
+    const height =
+        canvas.height;
+
+
+    const centerX =
+        width / 2;
+
+
+    const centerY =
+        height / 2;
+
+
+    const radius =
+        width / 2 - 12;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    const slice =
+        Math.PI * 2 /
+        items.length;
+
+
+    /*
+    12시 방향부터 시작
+    */
+
+    const startOffset =
+        -Math.PI / 2;
+
+
+    items.forEach(
+        (item, index) => {
+
+
+            const start =
+                startOffset +
+                index * slice;
+
+
+            const end =
+                start +
+                slice;
+
+
+            /* 조각 */
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                centerX,
+                centerY
+            );
+
+
+            ctx.arc(
+                centerX,
+                centerY,
+                radius,
+                start,
+                end
+            );
+
+
+            ctx.closePath();
+
+
+            ctx.fillStyle =
+                colors[
+                    index %
+                    colors.length
+                ];
+
+
+            ctx.fill();
+
+
+            ctx.strokeStyle =
+                "#ffffff";
+
+
+            ctx.lineWidth =
+                5;
+
+
+            ctx.stroke();
+
+
+
+            /* 글씨 */
+
+            ctx.save();
+
+
+            ctx.translate(
+                centerX,
+                centerY
+            );
+
+
+            ctx.rotate(
+                start +
+                slice / 2
+            );
+
+
+            ctx.textAlign =
+                "right";
+
+
+            ctx.textBaseline =
+                "middle";
+
+
+            ctx.fillStyle =
+                "#334155";
+
+
+            ctx.font =
+                "700 30px Arial";
+
+
+            let displayText =
+                item;
+
+
+            if (
+                displayText.length >
+                7
+            ) {
+
+                displayText =
+                    displayText.slice(
+                        0,
+                        7
+                    )
+                    +
+                    "…";
+
+            }
+
+
+            ctx.fillText(
+                displayText,
+                radius - 40,
+                0
+            );
+
+
+            ctx.restore();
+
+        }
+    );
+
+
+
+    /* 가운데 */
+
+    ctx.beginPath();
+
+
+    ctx.arc(
+        centerX,
+        centerY,
+        65,
+        0,
+        Math.PI * 2
+    );
+
+
+    ctx.fillStyle =
+        "#ffffff";
+
+
+    ctx.fill();
+
+}
+
+
+
+/* ================================
+   룰렛 회전 표시
+================================ */
+
+function renderWheel() {
+
+    canvas.style.transform =
+        `rotate(${currentRotation}deg)`;
+
+}
+
+
+
+/* ================================
+   리스트 표시
+================================ */
+
+function renderItems() {
+
+
+    itemList.innerHTML =
+        "";
+
+
+    items.forEach(
+        (item, index) => {
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "item";
+
+
+            const name =
+                document.createElement(
+                    "span"
+                );
+
+
+            name.className =
+                "item-name";
+
+
+            name.textContent =
+                `${index + 1}. ${item}`;
+
+
+
+            const deleteBtn =
+                document.createElement(
+                    "button"
+                );
+
+
+            deleteBtn.type =
+                "button";
+
+
+            deleteBtn.className =
+                "delete-btn";
+
+
+            deleteBtn.textContent =
+                "×";
+
+
+            deleteBtn.setAttribute(
+                "aria-label",
+                `${item} 삭제`
+            );
+
+
+            deleteBtn.addEventListener(
+                "click",
+                () =>
+                    deleteItem(index)
+            );
+
+
+            row.appendChild(
+                name
+            );
+
+
+            row.appendChild(
+                deleteBtn
+            );
+
+
+            itemList.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    drawWheel();
+
+}
+
+
+
+/* ================================
+   항목 추가
+================================ */
+
+function addItem() {
+
+
+    if (spinning) {
+        return;
+    }
+
+
+    const value =
+        itemInput.value.trim();
+
+
+    if (!value) {
+
+        alert(
+            "추가할 항목을 입력해주세요."
+        );
+
+        itemInput.focus();
+
+        return;
+
+    }
+
+
+    if (
+        items.length >= 12
+    ) {
+
+        alert(
+            "항목은 최대 12개까지 추가할 수 있어요."
+        );
+
+        return;
+
+    }
+
+
+    items.push(
+        value
+    );
+
+
+    itemInput.value =
+        "";
+
+
+    renderItems();
+
+
+    itemInput.focus();
+
+}
+
+
+
+addBtn.addEventListener(
+    "click",
+    addItem
+);
+
+
+itemInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Enter"
+        ) {
+
+            addItem();
+
+        }
+
+    }
+);
+
+
+
+/* ================================
+   삭제
+================================ */
+
+function deleteItem(index) {
+
+
+    if (spinning) {
+        return;
+    }
+
+
+    if (
+        items.length <= 2
+    ) {
+
+        alert(
+            "룰렛에는 최소 2개의 항목이 필요합니다."
+        );
+
+        return;
+
+    }
+
+
+    items.splice(
+        index,
+        1
+    );
+
+
+    renderItems();
+
+}
+
+
+
+/* ================================
+   기본값 초기화
+================================ */
+
+document
+    .getElementById(
+        "resetItemsBtn"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            if (spinning) {
+                return;
+            }
+
+
+            items = [
+                ...defaultItems
+            ];
+
+
+            currentRotation =
+                0;
+
+
+            renderWheel();
+
+            renderItems();
+
+        }
+    );
+
+
+
+/* ================================
+   룰렛 돌리기
+================================ */
+
+spinBtn.addEventListener(
+    "click",
+    spinWheel
+);
+
+
+function spinWheel() {
+
+
+    if (spinning) {
+        return;
+    }
+
+
+    if (
+        items.length < 2
+    ) {
+
+        alert(
+            "항목을 2개 이상 추가해주세요."
+        );
+
+        return;
+
+    }
+
+
+    spinning =
+        true;
+
+
+    spinBtn.disabled =
+        true;
+
+
+    addBtn.disabled =
+        true;
+
+
+    wheelMessage.textContent =
+        "룰렛이 돌아가고 있어요! 🎯";
+
+
+
+    /*
+    결과를 먼저 무작위로 선택
+    */
+
+    const winnerIndex =
+        Math.floor(
+            Math.random() *
+            items.length
+        );
+
+
+    const sliceDegree =
+        360 /
+        items.length;
+
+
+    /*
+    선택된 조각의 중앙이
+    위쪽 화살표를 향하도록 계산
+    */
+
+    const winnerCenter =
+        winnerIndex *
+        sliceDegree
+        +
+        sliceDegree / 2;
+
+
+    /*
+    현재 각도를 0~360으로 정규화
+    */
+
+    const normalized =
+        (
+            currentRotation %
+            360 +
+            360
+        ) %
+        360;
+
+
+    /*
+    목표 각도
+    */
+
+    const targetNormalized =
+        (
+            360 -
+            winnerCenter
+        ) %
+        360;
+
+
+    let difference =
+        targetNormalized -
+        normalized;
+
+
+    if (
+        difference < 0
+    ) {
+
+        difference +=
+            360;
+
+    }
+
+
+    /*
+    6~8바퀴
+    */
+
+    const extraTurns =
+        (
+            Math.floor(
+                Math.random() *
+                3
+            ) +
+            6
+        ) *
+        360;
+
+
+    const startRotation =
+        currentRotation;
+
+
+    const targetRotation =
+        currentRotation +
+        extraTurns +
+        difference;
+
+
+    const duration =
+        4500;
+
+
+    const startTime =
+        performance.now();
+
+
+
+    function animate(time) {
+
+
+        const elapsed =
+            time -
+            startTime;
+
+
+        const progress =
+            Math.min(
+                elapsed /
+                duration,
+                1
+            );
+
+
+        /*
+        빠르게 시작하고
+        천천히 멈춤
+        */
+
+        const ease =
+            1 -
+            Math.pow(
+                1 - progress,
+                4
+            );
+
+
+        currentRotation =
+            startRotation +
+            (
+                targetRotation -
+                startRotation
+            ) *
+            ease;
+
+
+        renderWheel();
+
+
+        if (
+            progress <
+            1
+        ) {
+
+            requestAnimationFrame(
+                animate
+            );
+
+        }
+
+        else {
+
+
+            currentRotation =
+                targetRotation;
+
+
+            renderWheel();
+
+
+            spinning =
+                false;
+
+
+            spinBtn.disabled =
+                false;
+
+
+            addBtn.disabled =
+                false;
+
+
+            wheelMessage.textContent =
+                `🎉 결과 : ${items[winnerIndex]}`;
+
+
+            setTimeout(
+                () => {
+
+                    showResult(
+                        items[
+                            winnerIndex
+                        ]
+                    );
+
+                },
+                350
+            );
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+
+/* ================================
+   결과 팝업
+================================ */
+
+function showResult(name) {
+
+
+    resultName.textContent =
+        name;
+
+
+    resultOverlay.style.display =
+        "flex";
+
+}
+
+
+
+/* 닫기 */
+
+document
+    .getElementById(
+        "closeBtn"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            resultOverlay.style.display =
+                "none";
+
+        }
+    );
+
+
+
+/* 다시 돌리기 */
+
+document
+    .getElementById(
+        "againBtn"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            resultOverlay.style.display =
+                "none";
+
+
+            setTimeout(
+                spinWheel,
+                150
+            );
+
+        }
+    );
+
+
+
+/* 팝업 바깥 클릭 */
+
+resultOverlay.addEventListener(
+    "click",
+    event => {
+
+
+        if (
+            event.target ===
+            resultOverlay
+        ) {
+
+            resultOverlay.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+
+/* ESC */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            resultOverlay.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+
+/* ================================
+   시작
+================================ */
+
+renderItems();
+
+</script>
+
+</body>
+</html>
