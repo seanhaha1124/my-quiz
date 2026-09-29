@@ -42,18 +42,12 @@
 
     .badge {
       display: inline-block;
-
       padding: 8px 16px;
-
       border-radius: 30px;
-
       background: #ffffff;
-
       border: 1px solid #e4e4ee;
-
       font-size: 14px;
       color: #6c63ff;
-
       margin-bottom: 20px;
     }
 
@@ -61,7 +55,6 @@
       font-size: clamp(38px, 6vw, 68px);
       font-weight: 800;
       letter-spacing: -3px;
-
       margin-bottom: 18px;
     }
 
@@ -81,10 +74,7 @@
 
     .games {
       display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
+      grid-template-columns: repeat(3, 1fr);
       gap: 22px;
     }
 
@@ -94,47 +84,36 @@
 
     .game {
       position: relative;
-
       display: block;
 
       min-height: 230px;
-
       padding: 30px;
 
-      background:
-        rgba(255,255,255,.9);
+      background: rgba(255,255,255,.9);
 
-      border:
-        1px solid #e8e8ef;
-
+      border: 1px solid #e8e8ef;
       border-radius: 24px;
 
       text-decoration: none;
-
       color: #222;
 
       box-shadow:
         0 15px 40px
         rgba(0,0,0,.05);
 
-      transition:
-        .25s ease;
+      transition: .25s ease;
 
       overflow: hidden;
     }
 
-    /* 실제 실행 가능한 카드 */
-
-    a.game:hover {
-      transform:
-        translateY(-8px);
+    .game:hover {
+      transform: translateY(-8px);
 
       box-shadow:
         0 22px 50px
         rgba(0,0,0,.10);
 
-      border-color:
-        #cbc8ff;
+      border-color: #cbc8ff;
     }
 
     /* =========================
@@ -148,7 +127,6 @@
       border-radius: 18px;
 
       display: flex;
-
       justify-content: center;
       align-items: center;
 
@@ -188,9 +166,7 @@
 
     .game p {
       color: #888;
-
       line-height: 1.6;
-
       font-size: 15px;
     }
 
@@ -205,49 +181,14 @@
       bottom: 23px;
 
       font-size: 22px;
-
       color: #aaa;
 
       transition: .2s;
     }
 
-    a.game:hover .arrow {
+    .game:hover .arrow {
       right: 20px;
-
       color: #6c63ff;
-    }
-
-    /* =========================
-       COMING SOON
-    ========================= */
-
-    .coming {
-      opacity: .58;
-
-      cursor: default;
-    }
-
-    .coming::after {
-      content: "COMING SOON";
-
-      position: absolute;
-
-      top: 22px;
-      right: 20px;
-
-      padding: 5px 8px;
-
-      border-radius: 20px;
-
-      background: #f1f5f9;
-
-      font-size: 9px;
-
-      font-weight: 700;
-
-      letter-spacing: 1px;
-
-      color: #999;
     }
 
     /* =========================
@@ -256,11 +197,8 @@
 
     .footer {
       margin-top: 55px;
-
       text-align: center;
-
       color: #aaa;
-
       font-size: 13px;
     }
 
@@ -324,11 +262,9 @@
       AI VIBE CODING PROJECT
     </div>
 
-
     <h1>
       AI 미니게임 <span>LAB</span>
     </h1>
-
 
     <p>
       AI와 대화하며 직접 만든 작은 웹 프로그램입니다.<br>
@@ -346,9 +282,7 @@
   <section class="games">
 
 
-    <!-- =====================
-         객관식 퀴즈
-    ====================== -->
+    <!-- 객관식 퀴즈 -->
 
     <a
       href="./quiz/"
@@ -359,16 +293,13 @@
         🧠
       </div>
 
-
       <h2>
         객관식 퀴즈
       </h2>
 
-
       <p>
         문제를 풀면서 나의 상식을 테스트해보세요.
       </p>
-
 
       <span class="arrow">
         →
@@ -378,57 +309,61 @@
 
 
 
-    <!-- =====================
-         룰렛
-    ====================== -->
+    <!-- 랜덤 룰렛 -->
 
-    <div class="game coming">
+    <a
+      href="./roulette/"
+      class="game"
+    >
 
       <div class="icon yellow">
         🎯
       </div>
 
-
       <h2>
         랜덤 룰렛
       </h2>
-
 
       <p>
         메뉴, 벌칙, 순서 등을 랜덤으로 결정하는 룰렛입니다.
       </p>
 
-    </div>
+      <span class="arrow">
+        →
+      </span>
+
+    </a>
 
 
 
-    <!-- =====================
-         성향 테스트
-    ====================== -->
+    <!-- 성향 테스트 -->
 
-    <div class="game coming">
+    <a
+      href="./personality/"
+      class="game"
+    >
 
       <div class="icon pink">
         💗
       </div>
 
-
       <h2>
         나의 성향 테스트
       </h2>
-
 
       <p>
         간단한 질문으로 재미있게 알아보는 나의 스타일.
       </p>
 
-    </div>
+      <span class="arrow">
+        →
+      </span>
+
+    </a>
 
 
 
-    <!-- =====================
-         여행 경비 계산기
-    ====================== -->
+    <!-- 여행 경비 계산기 -->
 
     <a
       href="./calculator/"
@@ -439,16 +374,13 @@
         🧮
       </div>
 
-
       <h2>
         여행 경비 계산기
       </h2>
 
-
       <p>
         여행에 필요한 총비용과 1인당 경비를 계산합니다.
       </p>
-
 
       <span class="arrow">
         →
@@ -458,9 +390,7 @@
 
 
 
-    <!-- =====================
-         기억력 게임
-    ====================== -->
+    <!-- 기억력 게임 -->
 
     <a
       href="./memory/"
@@ -471,16 +401,13 @@
         🃏
       </div>
 
-
       <h2>
         기억력 게임
       </h2>
 
-
       <p>
         같은 그림의 카드를 찾아 기억력에 도전해보세요.
       </p>
-
 
       <span class="arrow">
         →
