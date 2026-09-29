@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>나의 성향 테스트</title>
+
+<style>
+
+/* =========================================
+   기본 설정
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    min-height: 100vh;
+
+    padding: 35px 20px;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            #ffe7ef 0,
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            #e8e7ff 0,
+            transparent 30%
+        ),
+        #f7f8fc;
+
+    color: #222;
+
+}
+
+
+/* =========================================
+   전체
+========================================= */
+
+.wrap {
+
+    width: 100%;
+    max-width: 720px;
+
+    margin: 0 auto;
+
+}
+
+
+/* =========================================
+   메인으로
+========================================= */
+
+.home-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    padding: 9px 14px;
+
+    background: #fff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 30px;
+
+    color: #64748b;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: .2s;
+
+}
+
+
+.home-btn:hover {
+
+    background: #fff1f5;
+
+    border-color: #fbcfe8;
+
+    color: #db2777;
+
+    transform:
+        translateX(-2px);
+
+}
+
+
+/* =========================================
+   상단 제목
+========================================= */
+
+.header {
+
+    text-align: center;
+
+    margin-bottom: 28px;
+
+}
+
+
+.main-icon {
+
+    width: 72px;
+    height: 72px;
+
+    margin:
+        0 auto 16px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 22px;
+
+    background: #ffe7ef;
+
+    font-size: 36px;
+
+}
+
+
+h1 {
+
+    margin-bottom: 10px;
+
+    font-size: 36px;
+
+    letter-spacing: -1.5px;
+
+}
+
+
+.header p {
+
+    color: #777;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================
+   테스트 박스
+========================================= */
+
+.test-box {
+
+    padding: 32px;
+
+    background:
+        rgba(255,255,255,.96);
+
+    border:
+        1px solid #e8e8ef;
+
+    border-radius: 26px;
+
+    box-shadow:
+        0 18px 50px
+        rgba(0,0,0,.06);
+
+}
+
+
+/* =========================================
+   시작 화면
+========================================= */
+
+.start-screen {
+
+    padding:
+        15px 5px 5px;
+
+    text-align: center;
+
+}
+
+
+.start-emoji {
+
+    margin-bottom: 15px;
+
+    font-size: 70px;
+
+}
+
+
+.start-screen h2 {
+
+    margin-bottom: 13px;
+
+    font-size: 27px;
+
+}
+
+
+.start-description {
+
+    margin-bottom: 28px;
+
+    color: #64748b;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+}
+
+
+.start-info {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+
+    margin-bottom: 28px;
+
+}
+
+
+.start-info-box {
+
+    padding:
+        15px 7px;
+
+    background: #fdf2f8;
+
+    border-radius: 14px;
+
+}
+
+
+.start-info-icon {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 22px;
+
+}
+
+
+.start-info-text {
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================
+   공통 버튼
+========================================= */
+
+.main-button {
+
+    width: 100%;
+
+    min-height: 54px;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ec4899,
+            #8b5cf6
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+
+.main-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(236,72,153,.20);
+
+}
+
+
+/* =========================================
+   질문 화면
+========================================= */
+
+.question-screen {
+
+    display: none;
+
+}
+
+
+/* 진행 정보 */
+
+.progress-info {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 10px;
+
+}
+
+
+.question-number {
+
+    color: #db2777;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+}
+
+
+.progress-percent {
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+/* 진행바 */
+
+.progress {
+
+    width: 100%;
+    height: 9px;
+
+    margin-bottom: 35px;
+
+    background: #f1f5f9;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+}
+
+
+.progress-bar {
+
+    width: 10%;
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ec4899,
+            #8b5cf6
+        );
+
+    transition:
+        width .35s ease;
+
+}
+
+
+/* 질문 */
+
+.question-icon {
+
+    margin-bottom: 12px;
+
+    text-align: center;
+
+    font-size: 42px;
+
+}
+
+
+.question {
+
+    min-height: 80px;
+
+    margin-bottom: 25px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    line-height: 1.5;
+
+    word-break: keep-all;
+
+}
+
+
+/* =========================================
+   선택지
+========================================= */
+
+.answers {
+
+    display: grid;
+
+    gap: 12px;
+
+}
+
+
+.answer-btn {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 78px;
+
+    padding:
+        16px 50px 16px 20px;
+
+    border:
+        2px solid #eef2f7;
+
+    border-radius: 16px;
+
+    background: #fff;
+
+    color: #475569;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    line-height: 1.55;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+
+.answer-btn::after {
+
+    content: "→";
+
+    position: absolute;
+
+    right: 20px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: #cbd5e1;
+
+    font-size: 20px;
+
+    transition: .2s;
+
+}
+
+
+.answer-btn:hover {
+
+    border-color: #f9a8d4;
+
+    background: #fdf2f8;
+
+    color: #be185d;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.answer-btn:hover::after {
+
+    right: 16px;
+
+    color: #ec4899;
+
+}
+
+
+/* =========================================
+   이전 버튼
+========================================= */
+
+.question-bottom {
+
+    margin-top: 20px;
+
+    text-align: center;
+
+}
+
+
+.prev-btn {
+
+    border: 0;
+
+    background: transparent;
+
+    color: #94a3b8;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+.prev-btn:hover {
+
+    color: #64748b;
+
+}
+
+
+.prev-btn:disabled {
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================
+   결과 화면
+========================================= */
+
+.result-screen {
+
+    display: none;
+
+    text-align: center;
+
+}
+
+
+.result-small {
+
+    margin-bottom: 7px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.result-icon {
+
+    margin:
+        5px 0 12px;
+
+    font-size: 78px;
+
+}
+
+
+.result-title {
+
+    margin-bottom: 6px;
+
+    font-size: 14px;
+
+    color: #db2777;
+
+    font-weight: 800;
+
+}
+
+
+.result-name {
+
+    margin-bottom: 15px;
+
+    font-size: 31px;
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+}
+
+
+.result-description {
+
+    max-width: 560px;
+
+    margin:
+        0 auto 25px;
+
+    color: #64748b;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    word-break: keep-all;
+
+}
+
+
+/* =========================================
+   특징
+========================================= */
+
+.traits {
+
+    margin-bottom: 25px;
+
+    padding: 20px;
+
+    background: #fdf2f8;
+
+    border-radius: 18px;
+
+    text-align: left;
+
+}
+
+
+.traits-title {
+
+    margin-bottom: 13px;
+
+    color: #be185d;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+}
+
+
+.trait-list {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+}
+
+
+.trait {
+
+    padding:
+        8px 12px;
+
+    background: white;
+
+    border:
+        1px solid #fbcfe8;
+
+    border-radius: 30px;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================
+   결과 점수
+========================================= */
+
+.score-area {
+
+    margin-bottom: 27px;
+
+    padding: 20px;
+
+    border:
+        1px solid #eef2f7;
+
+    border-radius: 18px;
+
+    text-align: left;
+
+}
+
+
+.score-title {
+
+    margin-bottom: 15px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    color: #475569;
+
+}
+
+
+.score-row {
+
+    display: grid;
+
+    grid-template-columns:
+        72px 1fr 30px;
+
+    gap: 10px;
+
+    align-items: center;
+
+    margin-bottom: 11px;
+
+}
+
+
+.score-row:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.score-name {
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+.score-track {
+
+    height: 8px;
+
+    background: #f1f5f9;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+}
+
+
+.score-fill {
+
+    width: 0;
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f472b6,
+            #8b5cf6
+        );
+
+    transition:
+        width .8s ease;
+
+}
+
+
+.score-value {
+
+    color: #94a3b8;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    text-align: right;
+
+}
+
+
+/* =========================================
+   결과 버튼
+========================================= */
+
+.result-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+
+}
+
+
+.retry-btn,
+.result-home-btn {
+
+    min-height: 52px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 14px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+}
+
+
+.retry-btn {
+
+    border: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ec4899,
+            #8b5cf6
+        );
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+
+.result-home-btn {
+
+    border:
+        2px solid #e2e8f0;
+
+    background: #f8fafc;
+
+    color: #475569;
+
+    text-decoration: none;
+
+}
+
+
+/* =========================================
+   전환 효과
+========================================= */
+
+.fade-in {
+
+    animation:
+        fadeIn .35s ease;
+
+}
+
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================
+   모바일
+========================================= */
+
+@media(max-width:600px) {
+
+    body {
+
+        padding:
+            25px 14px;
+
+    }
+
+
+    h1 {
+
+        font-size: 29px;
+
+    }
+
+
+    .test-box {
+
+        padding:
+            24px 17px;
+
+        border-radius: 21px;
+
+    }
+
+
+    .question {
+
+        min-height: 70px;
+
+        font-size: 20px;
+
+    }
+
+
+    .answer-btn {
+
+        min-height: 72px;
+
+        padding:
+            14px 45px 14px 16px;
+
+        font-size: 14px;
+
+    }
+
+
+    .start-info {
+
+        gap: 6px;
+
+    }
+
+
+    .start-info-box {
+
+        padding:
+            13px 4px;
+
+    }
+
+
+    .result-name {
+
+        font-size: 27px;
+
+    }
+
+
+    .result-buttons {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<main class="wrap">
+
+
+    <!-- =====================================
+         메인으로
+    ====================================== -->
+
+    <a
+        href="../"
+        class="home-btn"
+    >
+        ← 메인으로
+    </a>
+
+
+
+    <!-- =====================================
+         제목
+    ====================================== -->
+
+    <header class="header">
+
+
+        <div class="main-icon">
+            💗
+        </div>
+
+
+        <h1>
+            나의 성향 테스트
+        </h1>
+
+
+        <p>
+            나는 어떤 스타일의 사람일까요?<br>
+            10개의 질문으로 재미있게 알아보세요.
+        </p>
+
+
+    </header>
+
+
+
+    <!-- =====================================
+         테스트 박스
+    ====================================== -->
+
+    <section class="test-box">
+
+
+        <!-- =================================
+             시작 화면
+        ================================== -->
+
+        <div
+            class="start-screen"
+            id="startScreen"
+        >
+
+
+            <div class="start-emoji">
+                ✨
+            </div>
+
+
+            <h2>
+                나의 스타일을 찾아볼까요?
+            </h2>
+
+
+            <p class="start-description">
+
+                정답은 없어요!<br>
+
+                오래 고민하지 말고
+                나와 더 가까운 답을 골라보세요.
+
+            </p>
+
+
+
+            <div class="start-info">
+
+
+                <div class="start-info-box">
+
+                    <span class="start-info-icon">
+                        💬
+                    </span>
+
+                    <span class="start-info-text">
+                        질문 10개
+                    </span>
+
+                </div>
+
+
+                <div class="start-info-box">
+
+                    <span class="start-info-icon">
+                        ⏱️
+                    </span>
+
+                    <span class="start-info-text">
+                        약 1분
+                    </span>
+
+                </div>
+
+
+                <div class="start-info-box">
+
+                    <span class="start-info-icon">
+                        🎨
+                    </span>
+
+                    <span class="start-info-text">
+                        결과 4가지
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <button
+                type="button"
+                class="main-button"
+                id="startBtn"
+            >
+                테스트 시작하기
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             질문 화면
+        ================================== -->
+
+        <div
+            class="question-screen"
+            id="questionScreen"
+        >
+
+
+            <div class="progress-info">
+
+
+                <div
+                    class="question-number"
+                    id="questionNumber"
+                >
+                    QUESTION 1 / 10
+                </div>
+
+
+                <div
+                    class="progress-percent"
+                    id="progressPercent"
+                >
+                    10%
+                </div>
+
+
+            </div>
+
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    id="progressBar"
+                ></div>
+
+            </div>
+
+
+
+            <div
+                class="question-icon"
+                id="questionIcon"
+            >
+                🌈
+            </div>
+
+
+
+            <div
+                class="question"
+                id="questionText"
+            >
+            </div>
+
+
+
+            <div
+                class="answers"
+                id="answers"
+            >
+            </div>
+
+
+
+            <div class="question-bottom">
+
+                <button
+                    type="button"
+                    class="prev-btn"
+                    id="prevBtn"
+                >
+                    ← 이전 질문
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             결과 화면
+        ================================== -->
+
+        <div
+            class="result-screen"
+            id="resultScreen"
+        >
+
+
+            <div class="result-small">
+                나의 성향은
+            </div>
+
+
+            <div
+                class="result-icon"
+                id="resultIcon"
+            >
+            </div>
+
+
+            <div
+                class="result-title"
+                id="resultTitle"
+            >
+            </div>
+
+
+            <div
+                class="result-name"
+                id="resultName"
+            >
+            </div>
+
+
+            <div
+                class="result-description"
+                id="resultDescription"
+            >
+            </div>
+
+
+
+            <div class="traits">
+
+
+                <div class="traits-title">
+                    ✨ 이런 모습이 있어요
+                </div>
+
+
+                <div
+                    class="trait-list"
+                    id="traitList"
+                >
+                </div>
+
+
+            </div>
+
+
+
+            <div class="score-area">
+
+
+                <div class="score-title">
+                    📊 나의 성향 점수
+                </div>
+
+
+                <div id="scoreList">
+                </div>
+
+
+            </div>
+
+
+
+            <div class="result-buttons">
+
+
+                <button
+                    type="button"
+                    class="retry-btn"
+                    id="retryBtn"
+                >
+                    🔄 다시 테스트하기
+                </button>
+
+
+                <a
+                    href="../"
+                    class="result-home-btn"
+                >
+                    🏠 메인으로 가기
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+/* =========================================
+   4가지 성향
+
+   explorer = 모험가
+   planner  = 계획가
+   creator  = 아이디어형
+   harmony  = 공감형
+========================================= */
+
+const types = {
+
+    explorer: {
+
+        icon: "🚀",
+
+        title:
+            "새로운 경험을 즐기는",
+
+        name:
+            "호기심 가득 모험가",
+
+        description:
+            "새로운 것을 발견하고 직접 경험해보는 것을 좋아하는 스타일이에요. 익숙한 방법에만 머무르기보다 재미있는 아이디어가 생기면 일단 시도해보는 편입니다.",
+
+        traits: [
+            "새로운 경험",
+            "도전",
+            "호기심",
+            "빠른 실행",
+            "변화를 즐김"
+        ]
+
+    },
+
+
+    planner: {
+
+        icon: "📘",
+
+        title:
+            "차근차근 준비하는",
+
+        name:
+            "든든한 계획가",
+
+        description:
+            "해야 할 일을 정리하고 순서대로 해결할 때 편안함을 느끼는 스타일이에요. 목표가 생기면 필요한 것을 미리 살펴보고 안정적으로 완성해 나가는 힘이 있습니다.",
+
+        traits: [
+            "계획적",
+            "꼼꼼함",
+            "책임감",
+            "정리",
+            "꾸준함"
+        ]
+
+    },
+
+
+    creator: {
+
+        icon: "🎨",
+
+        title:
+            "아이디어가 반짝이는",
+
+        name:
+            "상상력 풍부한 크리에이터",
+
+        description:
+            "자신만의 아이디어를 떠올리고 새로운 방식으로 표현하는 것을 좋아하는 스타일이에요. 같은 것을 보더라도 색다른 가능성을 발견하고 나만의 결과물로 만드는 것을 즐깁니다.",
+
+        traits: [
+            "아이디어",
+            "상상력",
+            "표현력",
+            "창의성",
+            "나만의 방식"
+        ]
+
+    },
+
+
+    harmony: {
+
+        icon: "🌷",
+
+        title:
+            "사람의 마음을 살피는",
+
+        name:
+            "따뜻한 공감가",
+
+        description:
+            "주변 사람의 기분과 분위기를 자연스럽게 살피는 스타일이에요. 함께하는 시간을 중요하게 생각하고 서로 편안하게 어울릴 수 있도록 배려하는 힘이 있습니다.",
+
+        traits: [
+            "공감",
+            "배려",
+            "협력",
+            "관계",
+            "따뜻함"
+        ]
+
+    }
+
+};
+
+
+
+/* =========================================
+   질문 10개
+
+   각 선택지는
+   특정 성향 점수 +1
+========================================= */
+
+const questions = [
+
+    {
+
+        icon: "✈️",
+
+        question:
+            "갑자기 하루의 자유시간이 생겼다면?",
+
+        answers: [
+
+            {
+                text:
+                    "가보지 않은 곳에 즉흥적으로 놀러 간다.",
+
+                type:
+                    "explorer"
+            },
+
+            {
+                text:
+                    "하고 싶었던 일을 정리해서 알차게 보낸다.",
+
+                type:
+                    "planner"
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        icon: "💡",
+
+        question:
+            "새로운 과제를 받았을 때 나는?",
+
+        answers: [
+
+            {
+                text:
+                    "남들과 다른 재미있는 방법부터 떠올려본다.",
+
+                type:
+                    "creator"
+            },
+
+            {
+                text:
+                    "누구와 함께하면 좋을지 먼저 생각해본다.",
+
+                type:
+                    "harmony"
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        icon: "🎁",
+
+        question:
+            "친구에게 선물을 준비한다면?",
+
+        answers: [
+
+            {
+                text:
+                    "친구가 좋아할 만한 것을 세심하게 고른다.",
+
+                type:
+                    "harmony"
+            },
+
+            {
+                text:
+                    "직접 꾸미거나 특별한 아이디어를 더한다.",
+
+                type:
+                    "creator"
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        icon: "🗺️",
+
+        question:
+            "여행을 떠나기 전 나의 모습은?",
+
+        answers: [
+
+            {
+                text:
+                    "숙소와 이동 경로, 일정을 미리 정리한다.",
+
+                type:
+                    "planner"
+            },
+
+            {
+                text:
+                    "큰 방향만 정하고 현지에서 마음 가는 대로 움직인다.",
+
+                type:
+                    "explorer"
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        icon: "🎉",
+
+        question:
+            "여럿이 모인 자리에서 나는?",
+
+        answers: [
+
+            {
+                text:
+                    "사람들이 편하게 어울리는지 자연스럽게 살핀다.",
+
+                type:
+                    "harmony"
+            },
+
+            {
+                text:
+                    "새로운 놀이와 재미있는 일을 먼저 제안한다.",
+
+                type:
+                    "explorer"
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        icon: "🧩",
+
+        question:
+            "어려운 문제가 생겼을 때 나는?",
+
+        answers: [
+
+            {
+                text:
+                    "문제를 나누고 하나씩 해결 방법을 찾아본다.",
+
+                type:
+                    "planner"
+            },
+
+            {
+                text:
+                    "기존과 전혀 다른 해결 방법이 없는지 생각해본다.",
+
+                type:
+                    "creator"
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        icon: "☕",
+
+        question:
+            "새로운 카페를 발견했다면?",
+
+        answers: [
+
+            {
+                text:
+                    "처음 보는 메뉴를 한번 주문해본다.",
+
+                type:
+                    "explorer"
+            },
+
+            {
+                text:
+                    "공간의 색감이나 인테리어를 유심히 구경한다.",
+
+                type:
+                    "creator"
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        icon: "📅",
+
+        question:
+            "해야 할 일이 많아졌을 때 나는?",
+
+        answers: [
+
+            {
+                text:
+                    "우선순위를 정하고 하나씩 처리한다.",
+
+                type:
+                    "planner"
+            },
+
+            {
+                text:
+                    "주변 사람들과 이야기하며 함께 방법을 찾는다.",
+
+                type:
+                    "harmony"
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        icon: "🎬",
+
+        question:
+            "친구들과 영상을 만든다면 내가 맡고 싶은 역할은?",
+
+        answers: [
+
+            {
+                text:
+                    "콘셉트와 장면을 상상하고 아이디어를 낸다.",
+
+                type:
+                    "creator"
+            },
+
+            {
+                text:
+                    "필요한 준비물과 촬영 순서를 정리한다.",
+
+                type:
+                    "planner"
+            }
+
+        ]
+
+    },
+
+
+    {
+
+        icon: "🌟",
+
+        question:
+            "둘 중 나에게 더 가까운 말은?",
+
+        answers: [
+
+            {
+                text:
+                    "새로운 경험을 하면 에너지가 생긴다.",
+
+                type:
+                    "explorer"
+            },
+
+            {
+                text:
+                    "좋아하는 사람들과 함께할 때 에너지가 생긴다.",
+
+                type:
+                    "harmony"
+            }
+
+        ]
+
+    }
+
+];
+
+
+
+/* =========================================
+   변수
+========================================= */
+
+let currentQuestion = 0;
+
+
+/*
+사용자가 고른 답을 저장한다.
+
+예:
+[
+ "explorer",
+ "creator",
+ ...
+]
+*/
+
+let selectedAnswers = [];
+
+
+
+/* =========================================
+   HTML 요소
+========================================= */
+
+const startScreen =
+    document.getElementById(
+        "startScreen"
+    );
+
+
+const questionScreen =
+    document.getElementById(
+        "questionScreen"
+    );
+
+
+const resultScreen =
+    document.getElementById(
+        "resultScreen"
+    );
+
+
+const questionNumber =
+    document.getElementById(
+        "questionNumber"
+    );
+
+
+const progressPercent =
+    document.getElementById(
+        "progressPercent"
+    );
+
+
+const progressBar =
+    document.getElementById(
+        "progressBar"
+    );
+
+
+const questionIcon =
+    document.getElementById(
+        "questionIcon"
+    );
+
+
+const questionText =
+    document.getElementById(
+        "questionText"
+    );
+
+
+const answersEl =
+    document.getElementById(
+        "answers"
+    );
+
+
+const prevBtn =
+    document.getElementById(
+        "prevBtn"
+    );
+
+
+
+/* =========================================
+   테스트 시작
+========================================= */
+
+document
+    .getElementById(
+        "startBtn"
+    )
+    .addEventListener(
+        "click",
+        startTest
+    );
+
+
+function startTest() {
+
+
+    currentQuestion = 0;
+
+    selectedAnswers = [];
+
+
+    startScreen.style.display =
+        "none";
+
+
+    resultScreen.style.display =
+        "none";
+
+
+    questionScreen.style.display =
+        "block";
+
+
+    questionScreen.classList.add(
+        "fade-in"
+    );
+
+
+    showQuestion();
+
+}
+
+
+
+/* =========================================
+   질문 표시
+========================================= */
+
+function showQuestion() {
+
+
+    const data =
+        questions[
+            currentQuestion
+        ];
+
+
+    /*
+    진행률
+    */
+
+    const progress =
+        Math.round(
+            (
+                (
+                    currentQuestion +
+                    1
+                )
+                /
+                questions.length
+            )
+            *
+            100
+        );
+
+
+    questionNumber.textContent =
+        `QUESTION ${currentQuestion + 1} / ${questions.length}`;
+
+
+    progressPercent.textContent =
+        `${progress}%`;
+
+
+    progressBar.style.width =
+        `${progress}%`;
+
+
+    /*
+    질문 내용
+    */
+
+    questionIcon.textContent =
+        data.icon;
+
+
+    questionText.textContent =
+        data.question;
+
+
+    /*
+    기존 선택지 제거
+    */
+
+    answersEl.innerHTML =
+        "";
+
+
+    /*
+    선택지 생성
+    */
+
+    data.answers.forEach(
+        answer => {
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.className =
+                "answer-btn";
+
+
+            button.textContent =
+                answer.text;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    selectAnswer(
+                        answer.type
+                    );
+
+                }
+            );
+
+
+            answersEl.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    /*
+    첫 번째 문제에서는
+    이전 버튼 숨김
+    */
+
+    prevBtn.disabled =
+        currentQuestion === 0;
+
+
+    /*
+    질문 등장 효과
+    */
+
+    questionScreen.classList.remove(
+        "fade-in"
+    );
+
+
+    void questionScreen.offsetWidth;
+
+
+    questionScreen.classList.add(
+        "fade-in"
+    );
+
+}
+
+
+
+/* =========================================
+   답 선택
+========================================= */
+
+function selectAnswer(type) {
+
+
+    /*
+    현재 문제의 답 저장
+    */
+
+    selectedAnswers[
+        currentQuestion
+    ] = type;
+
+
+    /*
+    마지막 질문인지 확인
+    */
+
+    if (
+        currentQuestion <
+        questions.length - 1
+    ) {
+
+
+        currentQuestion++;
+
+
+        showQuestion();
+
+    }
+
+    else {
+
+
+        showResult();
+
+    }
+
+}
+
+
+
+/* =========================================
+   이전 문제
+========================================= */
+
+prevBtn.addEventListener(
+    "click",
+    () => {
+
+
+        if (
+            currentQuestion <= 0
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+        현재 질문 답은
+        아직 선택하지 않았으므로
+        이전 문제로 이동
+        */
+
+        currentQuestion--;
+
+
+        /*
+        이전에 선택했던 답부터
+        다시 선택하게 하기 위해 삭제
+        */
+
+        selectedAnswers =
+            selectedAnswers.slice(
+                0,
+                currentQuestion
+            );
+
+
+        showQuestion();
+
+    }
+);
+
+
+
+/* =========================================
+   점수 계산
+========================================= */
+
+function calculateScores() {
+
+
+    const scores = {
+
+        explorer: 0,
+
+        planner: 0,
+
+        creator: 0,
+
+        harmony: 0
+
+    };
+
+
+    selectedAnswers.forEach(
+        type => {
+
+
+            if (
+                scores[
+                    type
+                ] !== undefined
+            ) {
+
+
+                scores[
+                    type
+                ]++;
+
+
+            }
+
+        }
+    );
+
+
+    return scores;
+
+}
+
+
+
+/* =========================================
+   최고 점수 찾기
+========================================= */
+
+function findResultType(scores) {
+
+
+    const keys =
+        Object.keys(
+            scores
+        );
+
+
+    let highest =
+        Math.max(
+            ...Object.values(
+                scores
+            )
+        );
+
+
+    /*
+    동점 유형 찾기
+    */
+
+    const winners =
+        keys.filter(
+            key =>
+                scores[key] ===
+                highest
+        );
+
+
+    /*
+    하나만 최고점이면
+    그대로 반환
+    */
+
+    if (
+        winners.length === 1
+    ) {
+
+        return winners[0];
+
+    }
+
+
+    /*
+    동점일 경우
+
+    사용자가 뒤쪽 질문에서
+    더 최근에 선택한 성향을
+    결과로 사용
+
+    랜덤 결과가 아니기 때문에
+    같은 답을 선택하면
+    같은 결과가 나온다.
+    */
+
+    for (
+        let i =
+            selectedAnswers.length - 1;
+
+        i >= 0;
+
+        i--
+    ) {
+
+
+        if (
+            winners.includes(
+                selectedAnswers[i]
+            )
+        ) {
+
+
+            return selectedAnswers[i];
+
+        }
+
+    }
+
+
+    return winners[0];
+
+}
+
+
+
+/* =========================================
+   결과 표시
+========================================= */
+
+function showResult() {
+
+
+    const scores =
+        calculateScores();
+
+
+    const resultType =
+        findResultType(
+            scores
+        );
+
+
+    const result =
+        types[
+            resultType
+        ];
+
+
+    questionScreen.style.display =
+        "none";
+
+
+    resultScreen.style.display =
+        "block";
+
+
+    resultScreen.classList.remove(
+        "fade-in"
+    );
+
+
+    void resultScreen.offsetWidth;
+
+
+    resultScreen.classList.add(
+        "fade-in"
+    );
+
+
+    /*
+    결과 내용
+    */
+
+    document
+        .getElementById(
+            "resultIcon"
+        )
+        .textContent =
+            result.icon;
+
+
+    document
+        .getElementById(
+            "resultTitle"
+        )
+        .textContent =
+            result.title;
+
+
+    document
+        .getElementById(
+            "resultName"
+        )
+        .textContent =
+            result.name;
+
+
+    document
+        .getElementById(
+            "resultDescription"
+        )
+        .textContent =
+            result.description;
+
+
+
+    /*
+    특징
+    */
+
+    const traitList =
+        document.getElementById(
+            "traitList"
+        );
+
+
+    traitList.innerHTML =
+        "";
+
+
+    result.traits.forEach(
+        trait => {
+
+
+            const span =
+                document.createElement(
+                    "span"
+                );
+
+
+            span.className =
+                "trait";
+
+
+            span.textContent =
+                `# ${trait}`;
+
+
+            traitList.appendChild(
+                span
+            );
+
+        }
+    );
+
+
+
+    /*
+    점수 그래프
+    */
+
+    renderScores(
+        scores
+    );
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+
+/* =========================================
+   점수 그래프
+========================================= */
+
+function renderScores(scores) {
+
+
+    const scoreList =
+        document.getElementById(
+            "scoreList"
+        );
+
+
+    scoreList.innerHTML =
+        "";
+
+
+    const labels = {
+
+        explorer:
+            "모험가",
+
+        planner:
+            "계획가",
+
+        creator:
+            "크리에이터",
+
+        harmony:
+            "공감가"
+
+    };
+
+
+    Object.keys(
+        scores
+    )
+    .forEach(
+        key => {
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "score-row";
+
+
+            /*
+            질문 10개 중
+            받은 점수를 백분율처럼
+            그래프 길이로 표현
+            */
+
+            const width =
+                (
+                    scores[key]
+                    /
+                    questions.length
+                )
+                *
+                100;
+
+
+            row.innerHTML = `
+
+                <div class="score-name">
+                    ${labels[key]}
+                </div>
+
+                <div class="score-track">
+
+                    <div
+                        class="score-fill"
+                        data-width="${width}"
+                    >
+                    </div>
+
+                </div>
+
+                <div class="score-value">
+                    ${scores[key]}
+                </div>
+
+            `;
+
+
+            scoreList.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    /*
+    그래프가 자연스럽게
+    늘어나는 효과
+    */
+
+    setTimeout(
+        () => {
+
+
+            document
+                .querySelectorAll(
+                    ".score-fill"
+                )
+                .forEach(
+                    bar => {
+
+
+                        bar.style.width =
+                            bar.dataset.width +
+                            "%";
+
+
+                    }
+                );
+
+
+        },
+        100
+    );
+
+}
+
+
+
+/* =========================================
+   다시 테스트
+========================================= */
+
+document
+    .getElementById(
+        "retryBtn"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            currentQuestion =
+                0;
+
+
+            selectedAnswers =
+                [];
+
+
+            resultScreen.style.display =
+                "none";
+
+
+            startScreen.style.display =
+                "block";
+
+
+            startScreen.classList.remove(
+                "fade-in"
+            );
+
+
+            void startScreen.offsetWidth;
+
+
+            startScreen.classList.add(
+                "fade-in"
+            );
+
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
